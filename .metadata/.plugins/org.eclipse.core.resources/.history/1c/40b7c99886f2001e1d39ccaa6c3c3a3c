@@ -1,0 +1,7 @@
+package com.jspstudy.ch04.exam.FormData02;
+
+public class FormData02 extends HttpServlet{
+
+	public void doPost
+	
+}

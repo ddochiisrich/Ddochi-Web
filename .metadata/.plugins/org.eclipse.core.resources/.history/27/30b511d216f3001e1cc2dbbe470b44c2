@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<% 
+
+	String name = request.getParameter("name");
+	String food = request.getParameter("food");
+	String colors = request.getParameter("colors");
+
+	request.setAttribute("name", name);
+	request.setAttribute("food", food);
+	request.setAttribute("colors", colors);
+
+	
+	response.sendRedirect("ch0501ExamResult.jsp?name="+name+"&food="+food+"&colors="+colors);
+%>
+
+	<script>
+		location.href="ch0501ExamResult.jsp";
+	</script>

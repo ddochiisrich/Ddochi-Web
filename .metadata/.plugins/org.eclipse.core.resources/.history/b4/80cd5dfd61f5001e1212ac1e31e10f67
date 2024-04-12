@@ -1,0 +1,19 @@
+package com.jspstudy.ch06.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class BoardDao01 {
+	
+	String user = "scott";
+	String pass = "tiger";
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	
+	//JDBC DB 프로그램에 필요한 객체
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+
+}

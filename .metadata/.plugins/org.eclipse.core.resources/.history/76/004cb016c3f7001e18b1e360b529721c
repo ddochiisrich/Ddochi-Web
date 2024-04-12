@@ -1,0 +1,18 @@
+document.addEventListener("DOMContentLoaded", function(){
+	
+	const writeForm = document.querySelector("#writeForm");
+	writeForm.addEventListener("submit", () =>{
+	// alert("writeForm submit");
+	// 판단 - 서버로 전송해도 되는지 판단
+	const writer = documentQthis.querySelector("writer").value;
+	const title = documentQthis.querySelector("title").value;
+	const pass = documentQthis.querySelector("pass").value;
+	const content = documentQthis.querySelector("content").value;
+	alert(writer.length);
+	if(writer){
+		
+	}
+	});
+	
+});
+

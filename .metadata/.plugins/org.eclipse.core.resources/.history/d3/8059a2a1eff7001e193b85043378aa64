@@ -1,0 +1,7 @@
+package com.jspstudy.ch06_1.controller;
+
+import javax.servlet.http.HttpServlet;
+
+public class BoardDetailController extends HttpServlet{
+	
+}

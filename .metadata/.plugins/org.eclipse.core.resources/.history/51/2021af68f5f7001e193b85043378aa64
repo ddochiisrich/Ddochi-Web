@@ -1,0 +1,10 @@
+$(function(){})		
+
+$("#writeForm").on("submit", function(){
+	if($("#writer").val().length <= 0){
+		alert("작성자를 입력해주세요")
+		$("#writer").focus();
+		return false
+	}
+	
+})

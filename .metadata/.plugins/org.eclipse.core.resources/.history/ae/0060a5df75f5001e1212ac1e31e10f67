@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+ <%
+ 
+ 	String user = "scott";
+ 	String pass = "tiger";
+ 	String driver = "oracle.jdbc.driver.OracleDriver";
+ 	String url = "jdbc:orcle:thin:@localhost:1521:xe";
+ 
+ 	Class.forName("oracle.jdbc.driver.OracleDriver");
+ 
+ %>   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

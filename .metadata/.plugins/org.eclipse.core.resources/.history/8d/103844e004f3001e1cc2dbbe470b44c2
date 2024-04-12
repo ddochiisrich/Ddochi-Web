@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>선호도 테스트</title>
+</head>
+<body>
+	<h1>선호도 테스트</h1>
+	<p>이름 : <input type="text" name="name"></p>
+	<p>좋아하는 색: <input type="radio" name="colors" value="red">빨강색 
+				 <input type="radio" name="colors" value="green">초록색 
+				 <input type="radio" name="colors" value="blue">파란색 </p>
+</body>
+</html>

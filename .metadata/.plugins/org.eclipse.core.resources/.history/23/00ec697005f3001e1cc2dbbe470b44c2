@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>선호도 테스트</title>
+</head>
+<body>
+	<h1>선호도 테스트</h1>
+	<p>이름 : <input type="text" name="name"></p>
+	<p>좋아하는 색: <input type="radio" name="colors" value="red">빨강색 
+				 <input type="radio" name="colors" value="green">초록색 
+				 <input type="radio" name="colors" value="blue">파란색 </p>
+	<p>좋아하는 음식 : <select>
+						<option value="짜장면">짜장면</option>
+						<option value="짬뽕">짬뽕</option>
+						<option value="볶음밥">볶음밥</option>
+						<option value="탕수육">탕수육</option>
+				   </select></p>			 
+	<p>좋아하는 동물 (모두 고르세요) : </p><br>
+		<input type="checkbox" name="hamster">햄스터 		 
+		<input type="checkbox" name="cat">고양이 	
+		<input type="checkbox" name="tiger">호랑이 	
+		<input type="checkbox" name="lion">사자 	
+		<input type="checkbox" name="dog">개 	
+</body>
+</html>

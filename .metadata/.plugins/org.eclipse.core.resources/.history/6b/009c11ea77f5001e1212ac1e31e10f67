@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+ <%
+ 
+ 	String user = "scott";
+ 	String pass = "tiger";
+ 	String driver = "oracle.jdbc.driver.OracleDriver";
+ 	String url = "jdbc:orcle:thin:@localhost:1521:xe";
+ 
+ 	// 1. 접속 드라이버 로딩
+ 	Class.forName(driver);
+ 	
+ 	// 2. DB에 연결
+ 	Connection conn = DriverManager.getConnection(url,user,pass);
+ 
+ %>   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>
