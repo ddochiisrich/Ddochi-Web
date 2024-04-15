@@ -44,6 +44,138 @@ public class BoardDao {
 		}
 	}
 	
+	// no에 해당하는 게시글 정보를 테이블에서 삭제하는 메서드
+	public void deleteBoard(int no) {
+		String sqlInsert ="DELETE FROM jspbbs where no=?";
+		
+		try {
+			// DB 연결
+			conn = ds.getConnection();
+			// 쿼리 발행
+			pstmt = conn.prepareStatement(sqlInsert);
+			// pstmt 필요한 정보 입력
+			pstmt.setInt(1, no);
+
+			// DB에 insert쿼리 발행
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	// DB테이블에서 no에 해당하는 게시글정보를 수정하는 메서드
+	public void updateBoard(Board board) {
+		String sqlInsert ="UPDATE jspbbs set title=?, writer=?, content=?, reg_date=SYSDATE, file1=?"
+				+ " Where no=?";
+		
+		try {
+			// DB 연결
+			conn = ds.getConnection();
+			// 쿼리 발행
+			pstmt = conn.prepareStatement(sqlInsert);
+			// pstmt 필요한 정보 입력
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getFile1());
+			pstmt.setInt(5, board.getNo());
+			// DB에 insert쿼리 발행
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 폼에 입력한 게시글 정보를 DB에 저장하는 메서드
+	public void insertBoard(Board board) {
+		String sqlInsert ="INSERT INTO jspbbs(no, title, writer, content, reg_date, read_count, pass, file1) "
+				+ "values(jspbbs_seq.NEXTVAL, ?, ?, ?, SYSDATE, 0, ?, ?)";
+		
+		try {
+			// DB 연결
+			conn = ds.getConnection();
+			// 쿼리 발행
+			pstmt = conn.prepareStatement(sqlInsert);
+			// pstmt 필요한 정보 입력
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getPass());
+			pstmt.setString(5, board.getFile1());
+			// DB에 insert쿼리 발행
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 게시글 수정, 삭제에서 비밀번호 체크해주는 메서드
+	public boolean isPassCheck(int no, String pass) {
+		boolean isPass = false;
+		String sqlBoard = "select pass from jspbbs where no=?";
+		Board board = null;
+		
+
+		try {
+			// DB 연결
+			conn = ds.getConnection();
+			// SQL 쿼리를 발행해주는 객체를 구한다.
+			pstmt = conn.prepareStatement(sqlBoard);
+			// 필요한 값(입력 값, placeholder, ?)
+			pstmt.setInt(1, no);
+			// 쿼리를 발행하고 ResultSet 객체를받음
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isPass = rs.getString(1).equals(pass);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return isPass;
+	}
+	
+	
 	// NO에 해당하는 게시글을 읽어와 반환하는 메서드
 	public Board getBoard(int no) {
 		String sqlBoard = "select * from jspbbs where no=?";

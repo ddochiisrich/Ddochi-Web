@@ -9,6 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🧛🏻 Board List 🧛🏻</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/formCheck02.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -22,6 +24,12 @@
 
 				<div class="row text-center">
 					<div class="col">
+					<!-- Hide Form -->
+					<form name="checkForm" id="checkForm">
+						<input type="hidden" name="no" id="no" value="${ board.no }">
+						<input type="hidden" name="pass" id="rPass">
+					</form>
+					
 						<h2 class="fs-3 fw-bold">Board Detail</h2>
 					</div>
 				</div>
