@@ -4,6 +4,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.jspstudy.ch06.vo.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
 <html lang="ko" data-bs-theme="dark">
@@ -11,6 +13,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🧛🏻 Board List 🧛🏻</title>
+
+<style>
+
+</style>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -69,7 +75,8 @@
 											<td>${ board.no }</td>
 											<td><a href="boardDetail?no=${ board.no }" class="link-underline link-underline-opacity-0 link-light">${ board.title }</a></td>
 											<td>${ board.writer }</td>
-											<td>${ board.regDate }</td>
+											<td><fmt:formatDate value="${ board.regDate }"
+											pattern="yyyy-MM-dd HH:mm" /></td>
 											<td>${ board.readCount }</td>
 										</tr>
 									</c:forEach>

@@ -40,3 +40,23 @@ INSERT INTO jspbbs (no,title,writer,content,reg_date,read_count,pass,file1) VALU
 COMMIT;
 SELECT * FROM jspbbs ORDER BY no DESC;
 
+DROP TABLE productlist;
+
+CREATE TABLE productlist (
+    productName   VARCHAR2(50)  NOT NULL,
+    productImg    VARCHAR2(50),
+    manufacturer  VARCHAR2(50)  NOT NULL,
+    price         NUMBER(10)    NOT NULL,
+    productCode   VARCHAR2(50)  PRIMARY KEY,
+    productcomment       VARCHAR2(1000) DEFAULT '상품설명이 없습니다.'
+);
+DROP SEQUENCE productlist_seq;
+CREATE SEQUENCE productlist_seq;
+
+SELECT * FROM productlist;
+
+INSERT INTO productlist(productName, productImg, manufacturer, price, productCode, productcomment) VALUES ('삼성 삼텐바이미 스마트모니터 ', 'LS32CM503EK-ST.jpg', '삼성전자', 460000, 'LS32CM503EK-ST', '자유로움, 부드러움 그리고 유연함');
+commit;
+
+INSERT INTO productlist(productName, productImg, manufacturer, price, productCode, productcomment) VALUES ('삼성','123', '123', 1234, '321321123', '1234');
+commit;

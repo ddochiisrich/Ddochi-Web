@@ -62,7 +62,7 @@
 									<td colspan="3"><c:if test="${ empty board.file1 }">
 											Not Found File
 										</c:if> <c:if test="${ not empty board.file1 }">
-											<a href="upload/${ board.file1 }">File DownLoad</a>
+											 <a href="upload/${ board.file1 }">${ board.file1 }</a>
 										</c:if></td>
 								</tr>
 								<tr>

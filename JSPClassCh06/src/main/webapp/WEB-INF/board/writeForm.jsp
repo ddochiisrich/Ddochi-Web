@@ -31,8 +31,8 @@
 				</div>
 				
 				<form name="writeForm" id="writeForm" action="writeProcess"
-					method="post" class="row border-danger g-3 my-3">
-					<div class="col-md-4 offset-2">
+					method="post" class="row border-danger g-3 my-3" enctype="multipart/form-data">
+					<div class="col-md-4 offset-2" >
 						<label for="writer" class="form-label">Writer</label> <input type="text" class="form-control" id="writer" name="writer" placeholder="write user name!">
 					</div>
 					<div class="col-md-4">
@@ -44,6 +44,9 @@
 					<div class="col-8 offset-2">
 						<label for="title" class="form-label">Content</label> <textarea class="form-control" id="content" name="content" rows="10"></textarea>
 					</div>
+					<div class="col-8 offset-2">
+						<label for="title" class="form-label">File</label> <input type="file" class="form-control" name="file1" id="file1">
+					</div>					
 					<div class="col-8 offset-2 text-center mt-5">
 						<input type="submit" value="Post" class="btn btn-danger">
 						&nbsp;&nbsp;
