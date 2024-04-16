@@ -10,6 +10,9 @@
 </head>
 <body>
 	<div class="container text-center">
+		<form name="checkForm" id="checkForm">
+			<input type="hidden" name="code" id="code"">
+		</form>
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6 my-5">
@@ -35,8 +38,8 @@
 			<div class="col-6">
 				<table class="table table-bordered">
 					<tr>
-						<td><img
-							src="upload/${ product.productImg }" style="width: 500px;"></img></td>
+						<td><img src="upload/${ product.productImg }"
+							style="width: 500px;"></img></td>
 
 					</tr>
 				</table>
@@ -59,10 +62,8 @@
 			<div class="row text-center">
 				<div class="col-2"></div>
 				<div class="col-8">
-					<a href="#">상품등록하기</a>
-					<a href="#">상품수정하기</a><br>
-					<a href="#">상품삭제하기</a>
-					<a href="productList">상품리스트보기</a>
+					<a href="addProduct">상품등록하기</a> <a type ="submit">상품수정하기</a><br> <a
+						href="#">상품삭제하기</a> <a href="productList">상품리스트보기</a>
 				</div>
 				<div class="col-2"></div>
 			</div>

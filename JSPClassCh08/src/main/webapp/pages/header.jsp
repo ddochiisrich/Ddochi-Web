@@ -11,10 +11,18 @@
 			<div class="col">
 				<ul class="nav justify-content-end">
 					<li class="nav-item">
-						<a class="nav-link" href="#">로그인</a>
+						<a class="nav-link" href="${ sessionScope.isLogin ? 'logout.jsp' : 'loginForm.jsp' }">${ sessionScope.isLogin ? '로그아웃' : '로그인' }</a>
+						
+						
+
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">회원가입</a>						
+						<c:if test="${ not sessionScope.isLogin }">
+						<a class="nav-link" href="#">회원가입</a>	
+						</c:if>
+						<c:if test="${ sessionScope.isLogin }">					
+						<a class="nav-link" href="#">정보수정</a>		
+						</c:if>				
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="">게시 글 리스트</a>
@@ -33,7 +41,9 @@
 		</div>
 		<div class="row">
 			<div class="col pe-5 text-end text-primary">
-				여기에 인사말 출력
+				<c:if test="${ sessionScope.isLogin }">
+				<span>안녕하세요 ${ sessionScope.id }님~</span>
+				</c:if>
 			</div>
 		</div>
 	</div>

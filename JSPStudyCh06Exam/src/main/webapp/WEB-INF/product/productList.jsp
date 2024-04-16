@@ -28,7 +28,7 @@
 				<c:if test="${ not empty productList }">
 					<c:forEach var="product" items="${ productList }">
 						<tr>
-							<td><a href="detailProduct?productCode=${ product.productCode }">${ product.productCode }</a></td>
+							<td><a href="detailProduct?productCode=${ product.productCode }">${ product.productName }</a></td>
 							<td>${ product.price }</td>
 							<td>${ product.productCode }</td>
 							<td>${ product.manufacturer }</td>
