@@ -75,7 +75,8 @@
 				<div class="row my-3">
 					<div class="col text-center">
 						<input type="button" class="btn btn-danger" id="detailUpdate"
-							value=" Edit "> &nbsp;&nbsp; <input type="button"
+							value=" Edit "> &nbsp;&nbsp; 
+							<input type="button"
 							class="btn btn-danger" id="detailDelete" value="Delete">
 						&nbsp;&nbsp; <input type="button" class="btn btn-danger"
 							value=" List " onclick="location.href='boardList'">

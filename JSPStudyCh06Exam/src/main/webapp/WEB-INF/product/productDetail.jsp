@@ -7,11 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/formCheck.js"></script>
 </head>
 <body>
 	<div class="container text-center">
 		<form name="checkForm" id="checkForm">
-			<input type="hidden" name="code" id="code"">
+			<input type="hidden" name="code" id="code" value="${ product.productCode }">
+			<input type="hidden" name="pdName" id="pdName" value="${ product.productName }">
 		</form>
 		<div class="row">
 			<div class="col-3"></div>
@@ -39,7 +42,7 @@
 				<table class="table table-bordered">
 					<tr>
 						<td><img src="upload/${ product.productImg }"
-							style="width: 500px;"></img></td>
+							style="height: 300px;"></img></td>
 
 					</tr>
 				</table>
@@ -59,11 +62,13 @@
 				</table>
 			</div>
 			<div class="col-3"></div>
-			<div class="row text-center">
+			<div class="row">
 				<div class="col-2"></div>
-				<div class="col-8">
-					<a href="addProduct">상품등록하기</a> <a type ="submit">상품수정하기</a><br> <a
-						href="#">상품삭제하기</a> <a href="productList">상품리스트보기</a>
+				<div class="col-8 justify-content-center">
+					<input type="button" value="상품등록" id="add" name="add" onclick="location.href='addProduct'" class="btn btn-secondary mx-3"/>
+					<input type="button" value="상품수정" id="edit" name="edit" class="btn btn-warning my-3"/>
+					<input type="button" value="상품삭제" id="delete" name="delete" class="btn btn-danger mx-3"/>
+					<input type="button" value="상품목록" id="list" name="list" onclick="location.href='productList'" class="btn btn-secondary my-3"/>
 				</div>
 				<div class="col-2"></div>
 			</div>

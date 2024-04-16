@@ -6,12 +6,12 @@
 		<item value="Apache Tomcat v9.0"/>
 	</list>
 	<list key="J2EE_IMPORT_null">
+		<item value="/Users/hyeongcheol/Downloads/JSPClassBBS03_1.war"/>
 		<item value="/Users/hyeongcheol/Desktop/[000]수업공유/06.JSP/JSPStudyCh08.war"/>
 		<item value="/Users/hyeongcheol/Downloads/JSPClassCh0650.war"/>
 		<item value="/Users/hyeongcheol/Downloads/JSPClassCh0640.war"/>
 		<item value="/Users/hyeongcheol/Downloads/JSPClassCh0630.war"/>
 		<item value="/Users/hyeongcheol/Downloads/JSPClassCh06.war"/>
-		<item value="/Users/hyeongcheol/Desktop/[000]수업공유/[00]JSPStudyBBS/JSPStudyBBS05.war"/>
 	</list>
 	<list key="J2EE_EXPORT_JST_WEB">
 		<item value="/Users/hyeongcheol/Desktop/JSPStudy/JSPListPrintClass.war"/>

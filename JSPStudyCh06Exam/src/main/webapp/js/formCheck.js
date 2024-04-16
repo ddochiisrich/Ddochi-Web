@@ -25,4 +25,22 @@ $(function() {
 });
 
 
+	$("#edit").on("click", function(){
+		
+		$("#checkForm").attr("action", "updateForm")
+		$("#checkForm").attr("method", "post")
+		
+		$("#checkForm").submit();
+	})
+	
+	$("#delete").on("click", function(){
+	    var productName = $("#pdName").val();
+	    var result = confirm(productName + " 상품을 삭제하시겠습니까?");
+	    
+	    if (result) {
+	        $("#checkForm").attr("action", "deleteProcess");
+	        $("#checkForm").attr("method", "post");
+	        $("#checkForm").submit();
+	    }
+	})
 });

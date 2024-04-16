@@ -74,6 +74,68 @@ public class ProductDao {
 
 	}
 	
+	// 게시글 삭제 메서드
+	public void deleteProduct(String productCode) {
+		String sqlDelete = "DELETE FROM productlist WHERE productCode=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlDelete);
+			
+			pstmt.setString(1, productCode);
+
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+	}
+	
+	// 게시글 수정 메서드
+	public void updateProduct(Product product) {
+		String sqlUpdate = "UPDATE productlist set productName=?, productImg=?, manufacturer=?, price=?, productCode=?, productcomment=? WHERE productCode=?";
+	
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlUpdate);
+			
+			pstmt.setString(1, product.getProductName());
+			pstmt.setString(2, product.getProductImg());
+			pstmt.setString(3, product.getManufacturer());
+			pstmt.setString(4, product.getPrice());
+			pstmt.setString(5, product.getProductCode());
+			pstmt.setString(6, product.getProductcomment());
+			pstmt.setString(7, product.getProductCode());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	}
+	
+
+	
 	// 게시글 추가 메서드
 	public void addProduct(Product product) {
 		
