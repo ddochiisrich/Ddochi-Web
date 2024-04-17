@@ -69,6 +69,34 @@ public class BoardDao {
 		} 
 	}
 
+	// DB 테이블에서 검색어가 포함된 게시글 수를 읽어와서 반환하는 메서드
+		public int getBoardCount(String type, String keyword) {
+			
+			String sqlCount = "SELECT COUNT(*) FROM jspbbs "
+							+ "WHERE " + type + " LIKE '%'||?||'%'";
+			int count = 0;
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sqlCount);
+				pstmt.setString(1, keyword);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+				} catch(SQLException e) {}
+			}
+			return count;
+		}
+	
 	// DB 테이블에서 전체 게시글 수를 읽어와서 반환하는 메서드
 	public int getBoardCount() {
 		
@@ -94,64 +122,79 @@ public class BoardDao {
 		return count;
 	}
 	
-
 	// DB 테이블에서 현재 페이지에 해당하는(시작 행과 끝행) 게시글을 읽어와 ArrayList로 반환하는 메서드
-	public ArrayList<Board> boardList(int startRow, int endRow) {
+		public ArrayList<Board> boardList(int startRow, int endRow) {
+			
+			String sqlBoardList = "SELECT * FROM (SELECT ROWNUM as num, sub.* FROM (SELECT * FROM jspbbs ORDER BY no DESC) sub) WHERE num >= ? AND num <= ?";
+			ArrayList<Board> boardList = null;
+			
+			try {			
+				conn = ds.getConnection();
+
+				pstmt = conn.prepareStatement(sqlBoardList);
+				
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+
+				rs = pstmt.executeQuery();
+
+				boardList = new ArrayList<Board>();
+
+				while(rs.next()) {
+
+					Board b = new Board();
+
+					b.setNo(rs.getInt("no"));
+					b.setTitle(rs.getString("title"));
+					b.setWriter(rs.getString("writer"));
+					b.setContent(rs.getString("content"));				
+					b.setRegDate(rs.getTimestamp("reg_date"));
+					b.setReadCount(rs.getInt("read_count"));
+					b.setPass(rs.getString("pass"));
+					b.setFile1(rs.getString("file1"));
+					
+					boardList.add(b);
+				}			
+			} catch(SQLException e) {
+				System.out.println("BoardDao - boardList() - SQLException");
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();				
+					if(conn != null) conn.close();
+				} catch(SQLException e) {}
+			}
+			
+			return boardList;
+			
+		} // end boardList();
+	
+	
+	// DB 테이블에서 검색어가 포함된 현재 페이지에 해당하는 게시글을 읽어와 ArrayList로 반환하는 메서드
+	public ArrayList<Board> searchList(String type, String keyword, int startRow, int endRow) {
 		
-		String sqlBoardList = "SELECT * FROM (SELECT ROWNUM as num, sub.* FROM (SELECT * FROM jspbbs ORDER BY no DESC) sub) WHERE num >= ? AND num <= ?";
+		String sqlBoardList = "SELECT * FROM (SELECT ROWNUM as num, sub.* FROM (SELECT * FROM jspbbs WHERE " + type + " LIKE ? ORDER BY no DESC) sub) WHERE num >= ? AND num <= ?";
 		ArrayList<Board> boardList = null;
 		
 		try {			
-			// 4. DataSource 객체를 이용해 커넥션을 대여한다.
 			conn = ds.getConnection();
-			
-			/* 5. DBMS에 SQL 쿼리를 발생하기 위해 활성화된 
-			 * Connection 객체로 부터 PreparedStatement 객체를 얻는다.
-			 *
-			 * PreparedStatement는 SQL 명령을 캐싱하여(저장하여) 반복적으로 사용하기
-			 * 때문에 prepareStatement()를 호출할 때 SQL 쿼리 문을 지정해야 한다.
-			 **/
+
 			pstmt = conn.prepareStatement(sqlBoardList);
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			/* 6. PreparedStatement를 이용해 DB에 SELECT 쿼리를 발행하고 
-			 * 그 결과로 ResultSet을 얻는다.
-			 *
-			 * executeQuery()는 실제 DBMS에 SELECT 쿼리를 발행하는 메소드로
-			 * DB에서 검색된 데이터를 가상의 테이블 형태인 ResultSet 객체로 반환한다.
-			 **/
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
 			rs = pstmt.executeQuery();
-			
-			// 게시 글 리스트를 저장할 ArrayList 객체 생성
+
 			boardList = new ArrayList<Board>();
-			
-			/* 7. 쿼리 실행 결과를 바탕으로 while문 안에서 하나의 게시 글을 저장할 
-			 * Board 객체를 생성하고 이 객체에 하나의 게시 글 정보를 저장하고
-			 * Board 객체를 ArrayList에 저장한다.
-			 *
-			 * ResultSet 객체는 DB로 부터 읽어온 데이터에 접근하기 위해 테이블의
-			 * 행을 가리키는 cursor를 제공한다. 맨 처음 ResultSet 객체를 반환
-			 * 받으면 cursor는 첫 번째 행 바로 이전을 가리키고 있다. ResultSet의
-			 * cursor가 맨 마지막 행에 도달하면 while문을 빠져 나온다.
- 			 *
-			 * ResultSet에는 다양한 데이터 타입에 대응하는 getter 메소드를
-			 * 지원하고 있으며 SELECT 문장에서 지정한 컬럼의 index 또는
-			 * 컬럼명으로 테이블의 필드 값을 가져올 수 있도록 getXxx() 메소드가
-			 * 오버로딩 되어 있어 index와 컬럼명 둘 다 사용이 가능하다.
-			 * 여기에 지정하는 index는 배열에서 사용되는 index의 개념이 아니라
-			 * 첫 번째 컬럼, 두 번째 컬럼과 같이 위치의 개념으로 1부터 시작된다.
-			 **/
+
 			while(rs.next()) {
-				
-				/* 반복문을 돌 때마다 Board 객체를 생성해 DB로부터 읽어온 한 행의
-				 * 데이터를 읽어 Board 객체에 저장하고 다시 ArrayList에 담는다.  
-				 **/	
+
 				Board b = new Board();
-				
-				/* ResultSet 객체의 getXXX() 메서드에 컬럼 위치에 대한 index 값을 
-				 * 1부터 지정할 수도 있고 컬럼 이름을 지정해 데이터를 읽어 올 수 있다.
-				 **/
+
 				b.setNo(rs.getInt("no"));
 				b.setTitle(rs.getString("title"));
 				b.setWriter(rs.getString("writer"));
@@ -169,16 +212,12 @@ public class BoardDao {
 			
 		} finally {
 			try {
-				// 8. 사용한 ResultSet과 PreparedStatement를 종료한다.
 				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				
-				// 9. 커넥션 풀로 Connection 객체를 반납한다.
+				if(pstmt != null) pstmt.close();				
 				if(conn != null) conn.close();
 			} catch(SQLException e) {}
 		}
 		
-		// 10. 데이터베이스로 부터 읽어온 게시 글 리스트를 반환한다.
 		return boardList;
 		
 	} // end boardList();
@@ -424,8 +463,10 @@ public class BoardDao {
 	 **/
 	public void updateBoard(Board board) {
 		
+		String fileUpdate = board.getFile1() != null ? ", file1=?" : "";
+		
 		String sqlUpdate = "UPDATE jspbbs set title=?, writer=?, content=?,"
-				+ " reg_date=SYSDATE, file1=? WHERE no=?";	
+				+ " reg_date=SYSDATE " + fileUpdate + " WHERE no=?";	
 		
 		try {
 			// 4. DataSource 객체를 이용해 커넥션을 대여한다.
@@ -456,8 +497,13 @@ public class BoardDao {
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getWriter());			
 			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getFile1());
-			pstmt.setInt(5, board.getNo());			
+			
+			if(board.getFile1() != null) {
+				pstmt.setString(4, board.getFile1());
+				pstmt.setInt(5, board.getNo());	
+			} else {
+				pstmt.setInt(4, board.getNo());	
+			}
 			
 			/* 7. 데이터베이스에 INSERT 쿼리를 발행하여 게시 글 정보를 테이블에 추가한다.
 			 *	

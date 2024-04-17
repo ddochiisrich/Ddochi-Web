@@ -160,8 +160,8 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPStudyCh06Exam" path="/JSPStudyCh06Exam" reloadable="true" source="org.eclipse.jst.jee.server:JSPStudyCh06Exam">
-	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.commons.dbcp2.BasicDataSourceFactory" maxActive="10" maxIdle="5" name="jdbc/productDBPool" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"/>	
+      <Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPClassBBS04" path="/JSPClassBBS04" reloadable="true" source="org.eclipse.jst.jee.server:JSPClassBBS04">
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.commons.dbcp2.BasicDataSourceFactory" maxActive="10" maxIdle="5" name="jdbc/bbsDBPool" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"/>
 </Context></Host>
     </Engine>
   </Service>

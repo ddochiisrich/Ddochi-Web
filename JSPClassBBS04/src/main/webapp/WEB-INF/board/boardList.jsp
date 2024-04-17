@@ -35,8 +35,8 @@
 				<h2 class="fs-3 fw-bold">게시 글 리스트</h2>
 			</div>
 		</div>
-		<form name="searchForm" id="searchForm" action="#"
-			class="row justify-content-center my-3">
+		<form name="searchForm" id="searchForm" action="boardList"
+			method="post" class="row justify-content-center my-3">
 			<div class="col-auto">
 				<select name="type" class="form-select">
 					<option value="title">제목</option>
@@ -51,11 +51,29 @@
 				<input type="submit" value="검 색" class="btn btn-primary" />
 			</div>
 		</form>
-		<div class="row">
-			<div class="col text-end">
-				<a href="writeForm" class="btn btn-outline-success">글쓰기</a>
+
+		<c:if test="${searchOption}">
+			<div class="row my-3">
+				<div class="col text-center">"${ keyword }" 검색 결과</div>
 			</div>
-		</div>
+			<div class="row">
+				<div class="col-6">
+					<a href="boardList" class="btn btn-outline-success">리스트</a>
+				</div>
+				<div class="col-6 text-end">
+					<a href="writeForm" class="btn btn-outline-success">글쓰기</a>
+				</div>
+			</div>
+		</c:if>
+
+
+		<c:if test="${ not searchOption}">
+			<div class="row">
+				<div class="col text-end">
+					<a href="writeForm" class="btn btn-outline-success">글쓰기</a>
+				</div>
+			</div>
+		</c:if>
 		<div class="row my-3">
 			<div class="col">
 				<table class="table table-hover">
@@ -69,30 +87,31 @@
 						</tr>
 					</thead>
 					<tbody class="text-secondary">
-						<%-- 
-						표현언어(EL)를 사용해 내장객체의 속성에 저장할 때 사용한 속성 이름을 지정하면
-						내장객체의 속성에 저장된 데이터를 읽어 올 수 있다. 스크립팅요소를 사용하는 것에
-						비해 더 간단히 내장객체의 속성에 저장된 값을 읽을 수 있다.
-						표현언어(EL)를 사용해 속성 이름을 지정하면 pageContext, request, session, 
-						application 4개의 영역에 저장된 속성을 작은 범위에서 큰 범위 순으로 검색하여
-						지정한 이름의 속성에 대한 값을 얻어 올 수 있다. 지정한 속성 이름이 존재하지 않아						
-						도 NullPointerException은 발생하지 않고 다만 아무것도 출력되지 않는다.
-						내장객체의 속성에 객체가 저장되어 있으면 내장객체의 속성 명과 dot 연자자(.)를 
-						사용해 객체의 프로퍼티(인스턴스 변수) 값을 읽어 올 수 있다. 표현언어(EL)로 객체의
-						프로퍼티를 읽기 위해서는 그 객체의 클래스에 읽어 올 프로퍼티에 대한 getter 
-						메서드가 반드시 존재해야 한다. 그렇지 않으면 JasperException이 발생한다.
-					--%>
-						<%-- 
-						게시 글이 있는 경우 게시 글 수만큼 반복하면서 게시 글을 출력		
-					--%>
-						<c:if test="${ not empty bList }">
+
+						<!-- 검색 게시글 요청리스트이면서 게시글이 존재하는 경우 -->
+						<c:if test="${ searchOption and not empty bList }">
 							<c:forEach var="b" items="${bList}">
 								<tr>
 									<td>${ b.no }</td>
-									<%-- 
-								반복문 안에서 한 행의 게시 글을 출력하면서 
-								게시 글 상세보기로 넘어갈 수 있도록 링크를 설정 
-							--%>
+
+									<td><a
+										href="boardDetail?no=${b.no}&pageNum=${currentPage}&type=${type}&keyword=${keyword}"
+										class="text-decoration-none link-secondary">${ b.title }</a></td>
+									<td>${ b.writer }</td>
+									<td><fmt:formatDate value="${ b.regDate }"
+											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td>${ b.readCount }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+
+						<!-- 일반 게시글 요청리스트이면서 게시글이 존재하는 경우 -->
+
+						<c:if test="${ not searchOption and not empty bList }">
+							<c:forEach var="b" items="${bList}">
+								<tr>
+									<td>${ b.no }</td>
+
 									<td><a
 										href="boardDetail?no=${b.no}&pageNum=${currentPage}"
 										class="text-decoration-none link-secondary">${ b.title }</a></td>
@@ -103,8 +122,15 @@
 								</tr>
 							</c:forEach>
 						</c:if>
-						<%-- 게시 글이 없는 경우 --%>
-						<c:if test="${ empty bList }">
+						<%-- 검색 요청이면서 게시 글이 없는 경우 --%>
+						<c:if test="${ searchOption and empty bList }">
+							<tr>
+								<td colspan="5" class="text-center">"${ keyword }"가 포함된 게시
+									글이 존재하지 않습니다.</td>
+							</tr>
+						</c:if>
+						<%-- 일반 게시글 요청이면서 게시 글이 없는 경우 --%>
+						<c:if test="${ not searchOption and empty bList }">
 							<tr>
 								<td colspan="5" class="text-center">게시 글이 존재하지 않습니다.</td>
 							</tr>
@@ -113,6 +139,50 @@
 				</table>
 			</div>
 		</div>
+		<!--  일반 게시글 리스트 요청이면서 게시 글이 존재하는 경우  -->
+		<c:if test="${ searchOption and not empty bList }">
+		<div class="row">
+			<div class="col">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:if test="${ startPage > pageGroup }">
+							<li class="page-item"><a class="page-link"
+								href="boardList?pageNum=1&type=${type}&keyword=${keyword}"><<</a></li>
+						</c:if>
+						<c:if test="${ startPage > pageGroup }">
+							<li class="page-item"><a class="page-link"
+								href="boardList?pageNum=${ startPage - pageGroup }&type=${type}&keyword=${keyword}"><</a></li>
+						</c:if>
+
+						<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
+							<!--  현제페이지가 맞는경우 -->
+							<c:if test="${ i == currentPage }">
+								<li class="page-item active"><a class="page-link"
+									href="boardList?pageNum=${ i }&type=${type}&keyword=${keyword}">${ i }</a></li>
+
+							</c:if>
+							<!--  현제 페이지가 아닌경우 -->
+							<c:if test="${i != currentPage }">
+								<li class="page-item"><a class="page-link"
+									href="boardList?pageNum=${ i }&type=${type}&keyword=${keyword}">${ i }</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${ endPage < pageCount }">
+							<li class="page-item"><a class="page-link"
+								href="boardList?pageNum=${ startPage + pageGroup }&type=${type}&keyword=${keyword}">></a></li>
+						</c:if>
+						<c:if test="${ endPage < pageCount }">
+							<li class="page-item"><a class="page-link"
+								href="boardList?pageNum=${ pageCount }&type=${type}&keyword=${keyword}">>></a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		</c:if>
+		
+		<!--  일반 게시글 리스트 요청이면서 게시 글이 존재하는 경우  -->
+		<c:if test="${ not searchOption and not empty bList }">
 		<div class="row">
 			<div class="col">
 				<nav aria-label="Page navigation">
@@ -151,6 +221,7 @@
 				</nav>
 			</div>
 		</div>
+		</c:if>
 		<!-- footer  -->
 		<%@ include file="../pages/footer.jsp"%>
 	</div>

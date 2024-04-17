@@ -34,6 +34,20 @@ public class BoardUpdateFormController extends HttpServlet {
 		 **/	
 		String sNo = request.getParameter("no");
 		String pass = request.getParameter("pass");
+		String pageNum = request.getParameter("pageNum");
+		
+		
+		if(sNo == null || sNo.equals("") || pass == null || pass.equals("") || pageNum == null || pageNum.equals("")) {
+			
+			response.setContentType("html/text; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근이여유!!!!!');");
+			out.println("history.back();");
+			out.println("</script>");
+			
+			return;
+		}
 		
 		/* BoardDao 객체를 생성하고 DB에서 게시 글 번호와 사용자가 입력한 게시 글
 		 * 비밀번호가 맞는지를 체크하여 맞으면 게시 글 번호에 해당하는 게시 글을 읽어온다.
@@ -64,6 +78,7 @@ public class BoardUpdateFormController extends HttpServlet {
 		
 		// 요청을 처리한 결과 데이터를 HttpServletRequest의 속성에 저장한다.
 		request.setAttribute("board", board);
+		request.setAttribute("pageNum", pageNum);
 		
 		/* view 페이지로 제어를 이동해 요청에 대한 결과를 출력하기 위해
 		 * HttpServletRequest 객체로 부터 RequestDispatcher 객체를 구하고

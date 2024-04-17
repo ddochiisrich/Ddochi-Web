@@ -1,6 +1,7 @@
 package com.jspstudy.bbs.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +29,19 @@ public class BoardDetailController extends HttpServlet {
 		 * 아래에서 no라는 요청 파라미터가 없다면 NumberFormatException 발생
 		 **/
 		String no = request.getParameter("no");	
+		String pageNum = request.getParameter("pageNum");
+		
+		if(no == null || no.equals("") || pageNum == null || pageNum.equals("")) {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근이여유!!!!!');");
+			out.println("history.back();");
+			out.println("</script>");
+			
+			return;
+		}
 		
 		// BoardDao 객체 구하고 게시 글 번호(no)에 해당하는 게시 글을 읽어온다.
 		BoardDao dao = new BoardDao();
@@ -35,6 +49,7 @@ public class BoardDetailController extends HttpServlet {
 
 		// 요청을 처리한 결과 데이터를 HttpServletRequest의 속성에 저장한다.
 		request.setAttribute("board", board);
+		request.setAttribute("pageNum", pageNum);
 		
 		/* view 페이지로 제어를 이동해 요청에 대한 결과를 출력하기 위해
 		 * HttpServletRequest 객체로 부터 RequestDispatcher 객체를 구하고

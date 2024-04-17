@@ -22,13 +22,25 @@ public class BoardListController extends HttpServlet {
 	// 페이지 네이션의 크기 - 10씩
 	private static final int PAGE_GROUP = 10;
 		
+	protected void doPost(
+			HttpServletRequest request, HttpServletResponse response)
+					throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		doGet(request, response);
+	}
+	
+	
 	// get 방식의 요청을 처리하는 메소드
 	protected void doGet(
 			HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
 		
-		// 입력 처리
+		// 입력 처리 - 페이징과 검색데이터 
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
@@ -40,10 +52,20 @@ public class BoardListController extends HttpServlet {
 		// BoardDao 객체를 생성하고 데이터베이스에서 게시 글 리스트를 읽어온다.
 		BoardDao dao = new BoardDao();
 		
-		// 전체 게시글수
-		int listCount = dao.getBoardCount();
-		ArrayList<Board> bList = dao.boardList(startRow, endRow);	
+		// 검색 요청인지 게시글요청인지
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
 		
+		// 전체 게시글수
+		int listCount = 0;
+		ArrayList<Board> bList = null;
+		
+		if(!searchOption) { // 검색 요청이 아니면
+			listCount = dao.getBoardCount();
+			bList = dao.boardList(startRow, endRow);	
+		}else { // 검색요청이면
+			listCount = dao.getBoardCount(type, keyword);
+			bList = dao.searchList(type, keyword, startRow, endRow);	
+		}
 		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 		
 		int startPage = currentPage / PAGE_GROUP * PAGE_GROUP + 1
@@ -61,6 +83,12 @@ public class BoardListController extends HttpServlet {
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("searchOption", searchOption);
+		if(searchOption) {
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("type", type);
+			
+		}
 
 		
 		
