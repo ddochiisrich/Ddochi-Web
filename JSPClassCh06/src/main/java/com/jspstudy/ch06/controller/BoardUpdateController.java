@@ -43,8 +43,11 @@ public class BoardUpdateController extends HttpServlet{
 		
 		// 비밀번호가 맞으면
 		String title = request.getParameter("title");
+		System.out.println(title);
 		String writer = request.getParameter("writer");
+		System.out.println(writer);
 		String content = request.getParameter("content");
+		System.out.println(content);
 		Board b = new Board();
 		b.setNo(Integer.parseInt(sNo));
 		b.setTitle(title);

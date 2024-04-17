@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.jspstudy.ch06.Exam.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +16,17 @@
 </head>
 <body>
 	<div class="container">
+		
 		<div>
 			<h1 class="text-center my-5">상품 수정하기</h1>
 		</div>
-		<form action="addProcess" id="productAdd" name="productAdd"
+		<form id="updateForm" name="updateForm" action="updateProcess"
 			method="post" enctype="multipart/form-data">
+			<input type="hidden" id="updateCode" name="updateCode" value="${ product.productCode }"/>
 			<div class="row my-3">
 				<div class="col-3"></div>
 				<div class="col-6">
-					상 품 명<input type="text" id="productName" name="productName"
+					상 품 명<input type="text" id="updateName" name="updateName"
 						value="${ product.productName }" class="form-control">
 				</div>
 				<div class="col-3"></div>
@@ -29,7 +35,7 @@
 			<div class="row my-3">
 				<div class="col-3"></div>
 				<div class="col-6">
-					판 매 가<input type="text" id="productPrice" name="productPrice"
+					판 매 가<input type="text" id="updatePrice" name="updatePrice"
 						value="${ product.price }" class="form-control">
 				</div>
 				<div class="col-3"></div>
@@ -38,16 +44,8 @@
 			<div class="row my-3">
 				<div class="col-3"></div>
 				<div class="col-6">
-					상품코드<input type="text" id="productCode" name="productCode"
-						value="${ product.productCode }" class="form-control">
-				</div>
-				<div class="col-3"></div>
-			</div>
-
-			<div class="row my-3">
-				<div class="col-3"></div>
-				<div class="col-6">
-					제 조 사<select id="productManufacturer" name="productManufacturer" class="form-select form-select-sm">
+					제 조 사<select id="updateManufacturer" name="updateManufacturer"
+						class="form-select form-select-sm">
 						<option value="삼성전자"
 							${product.manufacturer == '삼성전자' ? 'selected' : ''}>삼성전자</option>
 						<option value="LG전자"
@@ -65,7 +63,8 @@
 				<div class="col-3"></div>
 				<div class="col-6">
 					상품 상세설명<br>
-					<textarea id="productComment" name="productComment" class="form-control">${ product.productCode }</textarea>
+					<textarea id="updateComment" name="updateComment"
+						class="form-control">${ product.productcomment }</textarea>
 				</div>
 				<div class="col-3"></div>
 			</div>
@@ -73,16 +72,19 @@
 			<div class="row my-3">
 				<div class="col-3"></div>
 				<div class="col-6">
-					상품이미지<input type="file" id="productImg" name="productImg" class="form-control"></input>
+					상품이미지<input type="file" id="updateImg" name="updateImg"
+						class="form-control"></input>
 				</div>
 				<div class="col-3"></div>
 			</div>
 
+
 			<div class="row my-3">
 				<div class="col text-center">
-					<input type="reset" id="productReset" value="다시쓰기" class="btn btn-secondary"></input> <input
-						type="submit" id="productAdd" value="등록하기" class="btn btn-success"></input> <input
-						type="button" id="productCancle" value="취소하기"
+					<input type="reset" id="updateReset" value="다시쓰기"
+						class="btn btn-secondary"></input> <input type="submit"
+						id="updateEdit" value="수정하기" class="btn btn-success"></input> <input
+						type="button" id="updateCancle" value="취소하기"
 						onclick="location.href='productList'" class="btn btn-danger"></input>
 				</div>
 			</div>

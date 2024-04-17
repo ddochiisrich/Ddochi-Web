@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="enctype"/>
+		<item key="selection" value="productAdd"/>
 		<list key="findhistory">
+			<item value="productAdd"/>
 			<item value="enctype"/>
 			<item value="enc"/>
 			<item value="multipart"/>
