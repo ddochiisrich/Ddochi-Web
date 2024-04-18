@@ -1,9 +1,0 @@
-document.addEventListener("DOMContentLoaded", function(){
-	
-	const writeForm = document.querySelector("#writeForm");
-	writeForm.addEventListener("submit", () =>{
-	alert("writeForm submit");
-	});
-	
-});
-

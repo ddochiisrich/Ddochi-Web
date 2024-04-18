@@ -1,2 +1,0 @@
-127.0.0.1 - - [04/Apr/2024:23:33:41 +0900] "GET / HTTP/1.1" 404 807
-0:0:0:0:0:0:0:1 - - [04/Apr/2024:23:33:41 +0900] "GET /JSPStudyCh04Exam/WEB-INF/classes/com/jspstudy/ch04/exam/servlet/FormData.java HTTP/1.1" 404 916

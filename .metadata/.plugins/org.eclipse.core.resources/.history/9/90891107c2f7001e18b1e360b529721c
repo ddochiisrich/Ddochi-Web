@@ -1,6 +1,0 @@
-const writeForm = document.querySelector("#writeForm");
-writeForm.addEventListener("submit", () =>{
-	alert("writeForm submit");
-	
-	
-});
