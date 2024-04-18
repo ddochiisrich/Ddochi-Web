@@ -109,4 +109,44 @@ public class BoardDao {
 		}
 		return board;
 	}
+	
+	public void insertBoard(Board board) {
+		
+		String sqlInsert = "INSERT INTO jspbbs (no, title, writer, content, reg_date, read_count, pass, file1) VALUES (jspbbs_seq.NEXTVAL, ?, ?, ?, SYSDATE, 0, ?, ?)";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlInsert);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getPass());
+			pstmt.setString(5, board.getFile1());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if( pstmt != null) pstmt.close();
+				if( conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
