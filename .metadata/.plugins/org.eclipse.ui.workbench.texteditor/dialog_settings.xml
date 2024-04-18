@@ -6,8 +6,13 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="productAdd"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="pageNum"/>
+			<item value="submit"/>
+			<item value="form"/>
+			<item value="file"/>
+			<item value="html"/>
 			<item value="productAdd"/>
 			<item value="enctype"/>
 			<item value="enc"/>
@@ -18,9 +23,6 @@
 			<item value="comment"/>
 			<item value="txt"/>
 			<item value="mime"/>
-			<item value="URIEncoding"/>
-			<item value="write"/>
-			<item value="service("/>
 		</list>
 		<list key="replacehistory">
 			<item value="productcomment"/>

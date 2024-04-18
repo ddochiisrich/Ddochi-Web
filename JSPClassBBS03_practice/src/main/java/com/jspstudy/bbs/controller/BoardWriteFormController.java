@@ -24,6 +24,12 @@ public class BoardWriteFormController extends HttpServlet {
 		 * HttpServletRequest 객체로 부터 RequestDispatcher 객체를 구하고
 		 * /WEB-INF/board/writeForm.jsp 페이지로 포워딩 한다. 
 		 **/
+		
+		String pageNum = request.getParameter("pageNum");
+		System.out.println(pageNum);
+		
+		request.setAttribute("pageNum", pageNum);
+		
 		RequestDispatcher rd = 
 				request.getRequestDispatcher("/WEB-INF/board/writeForm.jsp");
 		rd.forward(request, response);

@@ -31,13 +31,26 @@ public class BoardDeleteController extends HttpServlet {
 		**/	
 		String sNo = request.getParameter("no");
 		String pass = request.getParameter("pass");
-		int no = Integer.parseInt(sNo);	
+		String pageNum = request.getParameter("pageNum");
+		
+		if(sNo == null || sNo.equals("") || pass == null || pass.equals("")
+				|| pageNum == null || pageNum.equals("")) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("	alert('Invalid access.');");
+			out.println("	history.back();");
+			out.println("</script>");
+			return;
+		}
 			
 		/* BoardDao 객체 생성하고 다시 한 번 게시 글의
 		 * 비밀번호를 체크해 맞지 않으면 이전으로 돌려보낸다.
 		 **/
 		BoardDao dao = new BoardDao();
+		int no = Integer.parseInt(sNo);	
 		boolean isPassCheck = dao.isPassCheck(no, pass);	
+		
 		if(! isPassCheck) {
 
 			/* 문자열을 보다 효율적으로 다루기 위해서 StringBuilder 객체를 이용해
@@ -87,6 +100,6 @@ public class BoardDeleteController extends HttpServlet {
 		 * 삭제하려고 하거나 SQLException을 발생 시킬 수 있어 Redirect 기법을
 		 * 사용한다. 이외에 다른 사이트로 이동시킬 때 Redirect 기법을 사용 한다.
 		 **/	
-		response.sendRedirect("boardList");
+		response.sendRedirect("boardList?pageNum=" + pageNum);
 	}
 }

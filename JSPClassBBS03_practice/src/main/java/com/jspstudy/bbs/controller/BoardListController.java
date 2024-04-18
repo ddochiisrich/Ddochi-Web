@@ -60,6 +60,7 @@ public class BoardListController extends HttpServlet {
 		}
 
 		// 요청을 처리한 결과 데이터를 HttpServletRequest의 속성에 저장한다.
+		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("bList", bList);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageGroup", PAGE_GROUP);
