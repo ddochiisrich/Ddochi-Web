@@ -30,6 +30,9 @@ public class BoardDetailController extends HttpServlet {
 		 **/
 		String no = request.getParameter("no");	
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+	
 		
 		if(no == null || no.equals("") || pageNum == null || pageNum.equals("")) {
 			response.setContentType("text/html; charset=utf-8");
@@ -41,6 +44,9 @@ public class BoardDetailController extends HttpServlet {
 			return;
 		}
 		
+		// 현재 요청이 검색에서 또는 ㅣㅇㄹ반 리스트에서 넘어왔는지 판단
+		boolean searchOption = type == null || type.equals("") || keyword == null || keyword.equals("") ? false : true;
+		
 		// BoardDao 객체 구하고 게시 글 번호(no)에 해당하는 게시 글을 읽어온다.
 		BoardDao dao = new BoardDao();
 		Board board = dao.getBoard(Integer.valueOf(no));
@@ -48,7 +54,11 @@ public class BoardDetailController extends HttpServlet {
 		// 요청을 처리한 결과 데이터를 HttpServletRequest의 속성에 저장한다.
 		request.setAttribute("board", board);
 		request.setAttribute("pageNum", pageNum);
-		
+		request.setAttribute("searchOption", searchOption);
+		if(searchOption) {
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("type", type);
+		}
 		/* view 페이지로 제어를 이동해 요청에 대한 결과를 출력하기 위해
 		 * HttpServletRequest 객체로 부터 RequestDispatcher 객체를 구하고
 		 * /WEB-INF/board/boardDetail.jsp 페이지로 포워딩 한다. 

@@ -3,6 +3,7 @@ package com.jspstudy.bbs.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +53,7 @@ public class BoardUpdateController extends HttpServlet {
 
 		// 요청 파라미터를 저장할 변수 선언 
 		String pass= null, title = null, writer = null, content = null;
-		String sNo = null, pageNum = null, fileName = null;
+		String sNo = null, pageNum = null, fileName = null, type=null, keyword=null;
 		int no = 0;	
 		
 		// 파일 업로드인지 아닌지 = ""miltipart/form-data"
@@ -73,6 +74,8 @@ public class BoardUpdateController extends HttpServlet {
 			pass = multi.getParameter("pass");
 			content = multi.getParameter("content");		
 			pageNum = multi.getParameter("pageNum");
+			keyword = multi.getParameter("keyword");
+			type = multi.getParameter("type");
 			
 			fileName = multi.getFilesystemName("file1");
 			System.out.println("업로드 된 파일명 : " + fileName);
@@ -93,6 +96,8 @@ public class BoardUpdateController extends HttpServlet {
 			writer = request.getParameter("writer");		
 			content = request.getParameter("content");
 			pageNum = request.getParameter("pageNum");
+			keyword = request.getParameter("keyword");
+			type = request.getParameter("type");
 			
 		}
 		
@@ -148,29 +153,17 @@ public class BoardUpdateController extends HttpServlet {
 		// BoardDao의 updateBoard() 메서드를 이용해 DB에서 게시 글을 수정한다.	
 		dao.updateBoard(board);	
 
-		/* 게시 글 수정이 완료된 후 response 내장객체의 sendRedirect() 메서드를
-		 * 이용해 게시 글 리스트로 Redirect 시킨다. response 내장객체의 sendRedirect()
-		 * 메서드는 요청한 자원이 다른 곳으로 이동되었다고 웹브라우저에게 응답하면서
-		 * 이동할 URL을 알려주고 그 쪽으로 다시 요청하라고 응답하는 메소드이다.
-		 * 웹 브라우저가 요청한 컨텐츠가 다른 곳으로 이동되었다고 응답하면서 그 쪽으로
-		 * 다시 요청하라고 이동할 주소를 웹브라우저에게 알려주면 웹브라우저는 그 주소로
-		 * 다시 요청하게 되는데 이를 리다이렉션이라고 한다.
-		 *	 
-		 * Redirect 기법은 웹 브라우저를 새로 고침(F5) 했을 때 동일한 코드가 다시
-		 * 실행되면 문제가 될 수 있는 경우 클라이언트의 요청을 처리한 후 특정 URL로
-		 * 이동시키기 위해 사용하는 기법이다. 예를 들어 게시 글 수정하기 요청을 처리한
-		 * 후 Redirect 시키지 않으면 게시 글 수정 후에 사용자가 새로 고침(F5) 동작을
-		 * 하면 바로 이전에 수정한 게시 글 내용과 동일한 내용을 다시 DB에 수정하는 작업을 
-		 * 하게 되는데 이렇게 되면 계속해서 같은 데이터를 수정하려고 하는 문제가 발생한다.
-		 * 이를 방지하기 위해서 게시 글 수정이 완료되면 게시 글 리스트(select 문은 반복
-		 * 사용해도 중복된 데이터가 발생하지 않음)로 이동시키기 위해서 response 
-		 * 내장객체의 sendRedirect() 메소드를 사용해 게시 글 리스트의 URL을
-		 * 웹 브라우저에게 응답하고 웹 브라우저는 응답 받은 URL로 다시 요청하도록 하는
-		 * 것이다. 이렇게 게시 글 수정과 같이 DB 입력 작업이 연동되는 경우 사용자의
-		 * 새로 고침(F5) 동작에 의해 동일한 요청이 다시 발생하여 DB에서 이미 수정된 
-		 * 게시 글을 수정하거나 SQLException을 발생 시킬 수 있어 Redirect 기법을
-		 * 사용한다. 이외에 다른 사이트로 이동시킬 때 Redirect 기법을 사용 한다.
-		 **/	
-		response.sendRedirect("boardList?pageNum="+ pageNum);
+		// 검색 리스트에서 들어온 요청인 경우
+		boolean searchOption = ( type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
+		String url = "boardList?pageNum="+ pageNum;
+		if(searchOption) {
+			keyword = URLEncoder.encode(keyword, "UTF-8");
+			url += "&type=" + type + "&keyword=" + keyword;
+		}
+		System.out.println("url : " + url);
+		
+		// 일반 리스트에서 들어온 요청인 경우
+		response.sendRedirect(url);
 	}
 }

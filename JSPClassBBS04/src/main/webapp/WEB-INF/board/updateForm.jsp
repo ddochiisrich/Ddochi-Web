@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,8 +33,10 @@
 				-->
 				<form name="updateForm" action="updateProcess" id="updateForm"
 					class="row g-3 border-primary" method="post" ${ not empty board.file1 ? "" : "enctype='multipart/form-data'" }>
-					<input type="hidden" name="no" value="${board.no}"> <input
-						type="hidden" name="pageNum" value="${pageNum}">
+					<input type="hidden" name="no" value="${board.no}"> 
+					<input type="hidden" name="pageNum" value="${pageNum}">
+					<input type="hidden" name="type" value="${ type }"/>
+					<input type="hidden" name="keyword" value="${ keyword }"/>
 					<div class="col-4 offset-md-2">
 						<label for="writer" class="form-label">글쓴이</label> <input
 							type="text" class="form-control" name="writer" id="writer"
@@ -63,9 +65,16 @@
 					</c:if>
 					<div class="col-8 offset-md-2 text-center mt-5">
 						<input type="submit" value="수정하기" class="btn btn-primary" />
-						&nbsp;&nbsp;<input type="button" value="목록보기"
-							onclick="location.href='boardList?pageNum=${ pageNum }'"
-							class="btn btn-primary" />
+							<c:if test="${ not searchOption }">
+						&nbsp;&nbsp;<input class="btn btn-primary" type="button"
+								value="목록보기"
+								onclick="location.href='boardList?pageNum=${pageNum}'" />
+						</c:if>
+						<c:if test="${ searchOption }">
+						&nbsp;&nbsp;<input class="btn btn-primary" type="button"
+								value="목록보기"
+								onclick="location.href='boardList?pageNum=${pageNum}&type=${type}&keyword=${keyword}'" />
+						</c:if>	
 					</div>
 				</form>
 			</div>

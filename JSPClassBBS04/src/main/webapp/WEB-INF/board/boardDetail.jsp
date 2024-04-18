@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-bs-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,6 +39,8 @@
 					<input type="hidden" name="no" id="no" value="${ board.no }"/>
 					<input type="hidden" name="pass" id="rPass" />
 					<input type="hidden" name="pageNum" value="${ pageNum }"/>
+					<input type="hidden" name="type" value="${ type }"/>
+					<input type="hidden" name="keyword" value="${ keyword }"/>
 				</form>
 				<div class="row text-center">
 					<div class="col">
@@ -94,8 +96,16 @@
 					<div class="col text-center">
 						<input class="btn btn-warning" type="button" id="detailUpdate" value="수정하기"/>
 						&nbsp;&nbsp;<input class="btn btn-danger"  type="button" id="detailDelete" value="삭제하기" />			
-						&nbsp;&nbsp;<input class="btn btn-primary" type="button" value="목록보기" 
-								onclick="location.href='boardList?pageNum=${pageNum}'"/>						
+						<c:if test="${ not searchOption }">
+						&nbsp;&nbsp;<input class="btn btn-primary" type="button"
+								value="목록보기"
+								onclick="location.href='boardList?pageNum=${pageNum}'" />
+						</c:if>
+						<c:if test="${ searchOption }">
+						&nbsp;&nbsp;<input class="btn btn-primary" type="button"
+								value="목록보기"
+								onclick="location.href='boardList?pageNum=${pageNum}&type=${type}&keyword=${keyword}'" />
+						</c:if>		
 					</div>
 				</div>
 			</div>	

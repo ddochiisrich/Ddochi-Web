@@ -12,7 +12,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,7 +96,7 @@
 
 									<td><a
 										href="boardDetail?no=${b.no}&pageNum=${currentPage}&type=${type}&keyword=${keyword}"
-										class="text-decoration-none link-secondary">${ b.title }</a></td>
+										class="text-decoration-none link-body">${ b.title }</a></td>
 									<td>${ b.writer }</td>
 									<td><fmt:formatDate value="${ b.regDate }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
@@ -114,7 +114,7 @@
 
 									<td><a
 										href="boardDetail?no=${b.no}&pageNum=${currentPage}"
-										class="text-decoration-none link-secondary">${ b.title }</a></td>
+										class="text-decoration-none link-body">${ b.title }</a></td>
 									<td>${ b.writer }</td>
 									<td><fmt:formatDate value="${ b.regDate }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
