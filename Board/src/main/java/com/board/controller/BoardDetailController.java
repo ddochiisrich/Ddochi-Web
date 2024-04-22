@@ -21,7 +21,7 @@ public class BoardDetailController extends HttpServlet {
 		String no = request.getParameter("no");
 		
 		BoardDao dao = new BoardDao();
-		Board board = dao.getBoard(Integer.valueOf(no));
+		Board board = dao.getBoard(Integer.parseInt(no));
 		
 		request.setAttribute("board", board);
 		

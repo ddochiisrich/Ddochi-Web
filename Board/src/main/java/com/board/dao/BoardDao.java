@@ -31,6 +31,84 @@ public class BoardDao {
 		}
 	}
 	
+	public void deleteBoard(int no) {
+		
+		String sqlDelete = "DELETE FROM jspbbs WHERE no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlDelete);
+			pstmt.setInt(1, no);
+			rs =  pstmt.executeQuery();
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void updateBoard(Board board) {
+		
+		String sqlUpdate = "UPDATE jspbbs SET title=?, writer=?, content=?, reg_date=SYSDATE, file1=? WHERE no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlUpdate);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getFile1());
+			pstmt.setInt(5, board.getNo());
+			rs =  pstmt.executeQuery();
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public boolean isPassCheck(int no, String pass) {
+		boolean isPass = false;
+		String sqlPass = "SELECT pass FROM jspbbs WHERE no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlPass);
+			pstmt.setInt(1, no);
+			rs =  pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isPass = rs.getString(1).equals(pass);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return isPass;
+	}
+	
 	public ArrayList<Board> boardList() {
 		
 		String sqlBoardList = "SELECT * FROM jspbbs ORDER BY no DESC";
