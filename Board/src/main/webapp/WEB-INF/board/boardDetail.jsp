@@ -19,8 +19,8 @@
 		<div class="row my-5" id="global-content">
 			<div class="col">
 				<form name="checkForm" id="checkForm">
-					<input type="hidden" name="no" id="no" value="${ board.no }" /> <input
-						type="hidden" name="pass" id="rPass" />
+					<input type="hidden" name="no" id="no" value="${ board.no }" /> 
+					<input type="hidden" name="pass" id="rPass" />
 				</form>
 				<div class="row text-center">
 					<div class="col">

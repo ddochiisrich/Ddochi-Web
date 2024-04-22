@@ -21,4 +21,13 @@ $(function(){
 			return false;
 		}
 	})
+	
+	$("#detailUpdate").on("click", function(){
+		
+		var pass = $("#pass").val();
+		if(pass.length <= 0){
+			alert("please enter the password");
+			return false
+		}
+	})
 })
