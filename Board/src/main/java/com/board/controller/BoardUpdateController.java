@@ -1,5 +1,6 @@
 package com.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -11,20 +12,80 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.board.dao.BoardDao;
 import com.board.vo.Board;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @WebServlet("/updateProcess")
 public class BoardUpdateController extends HttpServlet {
 
+	private static String uploadDir;
+	private static File parentFile;
+	
+	@Override
+	public void init() {
+		uploadDir = getServletContext().getInitParameter("uploadDir");
+		String realPath = getServletContext().getRealPath(uploadDir);
+		parentFile = new File(realPath);
+		
+		if(!(parentFile.exists() && parentFile.isDirectory()) ) {
+			parentFile.mkdir();
+		}
+		System.out.println("init = " + parentFile);
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+		String contentType = request.getHeader("Content-Type");
+		System.out.println("contentType : " + contentType);
 		
-		String pass, title, writer, content = null;
+		String pass, title, writer, content, sNo, pageNum, fileName = null;
 		int no = 0;
 		
-		no = Integer.parseInt(request.getParameter("no"));
-		pass = request.getParameter("pass");
+		if(contentType.contains("multipart/form-data")) {
+			String realPath = request.getServletContext().getRealPath(uploadDir);
+			int maxFileSize = 100 * 1024 * 1024;
+			String encoding = "UTF-8";
+			
+			MultipartRequest multi = new MultipartRequest(request, realPath, maxFileSize, encoding, new DefaultFileRenamePolicy());
+			
+			sNo = multi.getParameter("no");
+			pass = multi.getParameter("pass");
+			title = multi.getParameter("title");
+			writer = multi.getParameter("writer");
+			content = multi.getParameter("content");
+			pageNum = multi.getParameter("pageNum");
+			
+			fileName = multi.getFilesystemName("file1");
+			System.out.println("업로드 된 파일명 : " + fileName);
+			System.out.println("원본 파일명 : " + multi.getOriginalFileName("file1"));
+			
+			if(fileName == null) {
+				System.out.println("파일이 업로드되지않았음.");
+			}
+		} else {
+		
+			request.setCharacterEncoding("UTF-8");
+			
+			sNo = request.getParameter("no");
+			pass = request.getParameter("pass");
+			title = request.getParameter("title");
+			writer = request.getParameter("writer");
+			content = request.getParameter("content");
+			pageNum = request.getParameter("pageNum");	
+		}
+		
+		if(sNo == null || sNo.equals("") || pageNum == null || pageNum == "") {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근입니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+			return;
+		}
+		
+		no = Integer.parseInt(sNo);
 		
 		BoardDao dao = new BoardDao();
 		
@@ -39,15 +100,10 @@ public class BoardUpdateController extends HttpServlet {
 			
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.println(sb.toString());
-			System.out.println("비밀번호 맞지 않음");
+				out.println(sb.toString());
 			return;
 			
 		}
-		title = request.getParameter("title");
-		writer = request.getParameter("writer");
-		content = request.getParameter("content");
-		
 		
 		Board board = new Board();
 		
@@ -56,10 +112,11 @@ public class BoardUpdateController extends HttpServlet {
 		board.setContent(content);
 		board.setNo(no);
 		board.setContent(content);
+		board.setFile1(fileName);
 		
 		dao.updateBoard(board);
 		
-		response.sendRedirect("boardList");
+		response.sendRedirect("boardList?pageNum=" + pageNum);
 		
 		
 		

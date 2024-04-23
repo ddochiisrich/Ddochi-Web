@@ -21,6 +21,18 @@ public class BoardDeleteController extends HttpServlet {
 		
 		String sNo = request.getParameter("no");
 		String pass = request.getParameter("pass");
+		String pageNum = request.getParameter("pageNum");
+		
+		if( sNo == null || sNo.equals("") || pass == null || pass.equals("") || pageNum == null || pageNum.equals("")) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println(" alert('잘못된 접근입니다.');");
+			out.println(" history.back();");
+			out.println("</script>");
+			return;
+		}
+		
 		int no = Integer.parseInt(sNo);
 		
 		BoardDao dao = new BoardDao();
@@ -40,7 +52,7 @@ public class BoardDeleteController extends HttpServlet {
 			return;
 		}
 		dao.deleteBoard(no);
-		response.sendRedirect("boardList");
+		response.sendRedirect("boardList?pageNum=" + pageNum);
 	}
 
 	

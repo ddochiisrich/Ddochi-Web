@@ -31,6 +31,75 @@ public class BoardDao {
 		}
 	}
 	
+	public int getBoardCount(String type, String keyword) {
+		System.out.println(type + " - " + keyword);
+		String sqlCount = "SELECT COUNT(*) FROM jspbbs WHERE " + type + " LIKE '%' || ? || '%'";
+		int count = 0;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlCount);
+			pstmt.setString(1, keyword);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}return count;
+	}
+	
+	public ArrayList<Board> searchList(String type, String keyword, int startRow, int endRow){
+		
+		String sqlSearchList = "SELECT * FROM (SELECT ROWNUM num, no, title, writer, content, reg_date, read_count, pass, file1 FROM (SELECT * FROM jspbbs WHERE " + type + " LIKE ? ORDER BY no DESC)) WHERE num >= ? AND num <= ?";
+		ArrayList<Board> boardList = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlSearchList);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				boardList = new ArrayList<Board>();
+				Board board = new Board();
+				
+				board.setNo(rs.getInt("no"));
+				board.setTitle(rs.getString("title"));
+				board.setWriter(rs.getString("writer"));
+				board.setContent(rs.getString("content"));
+				board.setRegDate(rs.getTimestamp("reg_date"));
+				board.setReadCount(rs.getInt("read_count"));
+				board.setPass(rs.getString("pass"));
+				board.setFile1(rs.getString("file1"));
+				
+				boardList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} return boardList;
+		
+	}
+	
 	public int getBoardCount() {
 		
 		String sqlCount = "SELECT count(*) FROM jspbbs";
