@@ -22,6 +22,10 @@
 					<input type="hidden" name="no" id="no" value="${ board.no }" /> 
 					<input type="hidden" name="pass" id="rPass" />
 					<input type="hidden" name="pageNum" id="pageNum" value="${ pageNum }"/>
+					<c:if test="${ searchOption }">
+						<input type="hidden" name="type" value="${ type }">
+						<input type="hidden" name="keyword" value="${ keyword }">
+					</c:if>
 				</form>
 				<div class="row text-center">
 					<div class="col">
@@ -75,7 +79,12 @@
 					<div class="col text-center">
 						<input class="btn btn-warning mx-3" type="button" id="detailUpdate" value="Edit" /> 
 						<input class="btn btn-danger mx-3" type="button" id="detailDelete" value="Delete" />
+						<c:if test="${ not searchOption }">
 						<input class="btn btn-primary mx-3" type="button" value="List" onclick="location.href='boardList?pageNum=${ pageNum }'" />
+						</c:if>
+						<c:if test="${ searchOption }">
+						<input class="btn btn-primary mx-3" type="button" value="List" onclick="location.href='boardList?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'" />
+						</c:if>
 					</div>
 				</div>
 			</div>

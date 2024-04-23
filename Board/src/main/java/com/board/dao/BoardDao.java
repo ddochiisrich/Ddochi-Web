@@ -71,8 +71,11 @@ public class BoardDao {
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			
+			boardList = new ArrayList<Board>();
+			
 			while(rs.next()) {
-				boardList = new ArrayList<Board>();
+				
+				
 				Board board = new Board();
 				
 				board.setNo(rs.getInt("no"));
