@@ -25,8 +25,7 @@ public class BoardUpdateFormController extends HttpServlet {
 		String pageNum = request.getParameter("pageNum");
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
-		
-		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+
 		
 		BoardDao dao = new BoardDao();
 		int no = Integer.parseInt(sNo);
@@ -55,12 +54,20 @@ public class BoardUpdateFormController extends HttpServlet {
 			out.println("</script>");
 			return;
 		}
-
+		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
 		
 		Board board = dao.getBoard(no);
+		
 		request.setAttribute("board", board);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("searchOption", searchOption);
+		
+		if(searchOption) {
+			request.setAttribute("type", type);
+			request.setAttribute("keyword", keyword);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/board/updateForm.jsp");
 		rd.forward(request, response);

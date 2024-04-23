@@ -21,6 +21,8 @@ public class BoardDetailController extends HttpServlet {
 		
 		String no = request.getParameter("no");
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
 		
 		if(no == null || no.equals("") || pageNum == null || pageNum.equals("")) {
 			
@@ -33,12 +35,19 @@ public class BoardDetailController extends HttpServlet {
 			return;
 		}
 		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
 		BoardDao dao = new BoardDao();
 		Board board = dao.getBoard(Integer.valueOf(no));
 		
 		request.setAttribute("board", board);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("searchOption", searchOption);
 		
+		if(searchOption) {
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("type", type);
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/board/boardDetail.jsp");
 		rd.forward(request, response);
 	}

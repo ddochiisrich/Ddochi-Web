@@ -2,6 +2,7 @@ package com.board.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,8 @@ public class BoardDeleteController extends HttpServlet {
 		String sNo = request.getParameter("no");
 		String pass = request.getParameter("pass");
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
 		
 		if( sNo == null || sNo.equals("") || pass == null || pass.equals("") || pageNum == null || pageNum.equals("")) {
 			response.setContentType("text/html; charset=utf-8");
@@ -52,7 +55,16 @@ public class BoardDeleteController extends HttpServlet {
 			return;
 		}
 		dao.deleteBoard(no);
-		response.sendRedirect("boardList?pageNum=" + pageNum);
+		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
+		String url = "boardList?pageNum=" + pageNum;
+		
+		if(searchOption) {
+			keyword = URLEncoder.encode(keyword, "utf-8");
+			url += "&type=" + type + "&keyword=" + keyword;
+		}
+		response.sendRedirect(url);
 	}
 
 	

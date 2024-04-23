@@ -3,6 +3,7 @@ package com.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +40,15 @@ public class BoardUpdateController extends HttpServlet {
 		String contentType = request.getHeader("Content-Type");
 		System.out.println("contentType : " + contentType);
 		
-		String pass, title, writer, content, sNo, pageNum, fileName = null;
+		String pass = null;
+		String title = null;
+		String writer = null;
+		String content = null;
+		String sNo = null;
+		String pageNum = null;
+		String fileName = null;
+		String type  = null;
+		String keyword = null;
 		int no = 0;
 		
 		if(contentType.contains("multipart/form-data")) {
@@ -55,6 +64,8 @@ public class BoardUpdateController extends HttpServlet {
 			writer = multi.getParameter("writer");
 			content = multi.getParameter("content");
 			pageNum = multi.getParameter("pageNum");
+			type = multi.getParameter("type");
+			keyword = multi.getParameter("keyword");
 			
 			fileName = multi.getFilesystemName("file1");
 			System.out.println("업로드 된 파일명 : " + fileName);
@@ -73,6 +84,8 @@ public class BoardUpdateController extends HttpServlet {
 			writer = request.getParameter("writer");
 			content = request.getParameter("content");
 			pageNum = request.getParameter("pageNum");	
+			type = request.getParameter("type");
+			keyword = request.getParameter("keyword");
 		}
 		
 		if(sNo == null || sNo.equals("") || pageNum == null || pageNum == "") {
@@ -88,6 +101,18 @@ public class BoardUpdateController extends HttpServlet {
 		no = Integer.parseInt(sNo);
 		
 		BoardDao dao = new BoardDao();
+		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		String url = "boardList?pageNum=" + pageNum;
+		
+		if(searchOption) {
+			keyword = URLEncoder.encode(keyword, "UTF-8");
+			url += "&type=" +type+ "&keyword=" +keyword;
+		}
+		System.out.println("keyword : " + keyword);
+		System.out.println("url : " + url);
+		System.out.println(type);
+		System.out.println(keyword);
 		
 		boolean isPassCheck = dao.isPassCheck(no, pass);
 		
@@ -116,9 +141,8 @@ public class BoardUpdateController extends HttpServlet {
 		
 		dao.updateBoard(board);
 		
-		response.sendRedirect("boardList?pageNum=" + pageNum);
 		
-		
+		response.sendRedirect(url);
 		
 	}
 
