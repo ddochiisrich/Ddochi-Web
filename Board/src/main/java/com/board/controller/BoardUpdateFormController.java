@@ -22,9 +22,9 @@ public class BoardUpdateFormController extends HttpServlet {
 		
 		String sNo = request.getParameter("no");
 		String pass = request.getParameter("pass");
+		String pageNum = request.getParameter("pageNum");
 		
 		BoardDao dao = new BoardDao();
-		
 		int no = Integer.parseInt(sNo);
 		boolean isPassCheck = dao.isPassCheck(no, pass);
 		
@@ -40,9 +40,22 @@ public class BoardUpdateFormController extends HttpServlet {
 			return;
 
 		}
+		if(sNo == null || sNo.equals("") || pageNum == null || pageNum.equals("")) {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근입니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+			return;
+		}
+
 		
 		Board board = dao.getBoard(no);
 		request.setAttribute("board", board);
+		request.setAttribute("pageNum", pageNum);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/board/updateForm.jsp");
 		rd.forward(request, response);

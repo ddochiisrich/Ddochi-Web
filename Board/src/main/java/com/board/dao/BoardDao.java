@@ -31,6 +31,34 @@ public class BoardDao {
 		}
 	}
 	
+	public int getBoardCount() {
+		
+		String sqlCount = "SELECT count(*) FROM jspbbs";
+		int count = 0;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlCount);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+		
+	}
+	
 	public void deleteBoard(int no) {
 		
 		String sqlDelete = "DELETE FROM jspbbs WHERE no=?";
@@ -56,7 +84,8 @@ public class BoardDao {
 	
 	public void updateBoard(Board board) {
 		
-		String sqlUpdate = "UPDATE jspbbs SET title=?, writer=?, content=?, reg_date=SYSDATE, file1=? WHERE no=?";
+		String fileUpdate = board.getFile1() != null ? ", file1=?" : "";
+		String sqlUpdate = "UPDATE jspbbs SET title=?, writer=?, content=?, reg_date=SYSDATE" + fileUpdate + " WHERE no=?";
 		
 		try {
 			conn = ds.getConnection();
@@ -64,8 +93,13 @@ public class BoardDao {
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getWriter());
 			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getFile1());
-			pstmt.setInt(5, board.getNo());
+			
+			if(board.getFile1() != null) {
+				pstmt.setString(4, board.getFile1());
+				pstmt.setInt(5, board.getNo());
+			} else {
+				pstmt.setInt(4, board.getNo());
+			}
 			rs =  pstmt.executeQuery();
 			
 
@@ -109,14 +143,16 @@ public class BoardDao {
 		return isPass;
 	}
 	
-	public ArrayList<Board> boardList() {
+	public ArrayList<Board> boardList(int startRow, int endRow) {
 		
-		String sqlBoardList = "SELECT * FROM jspbbs ORDER BY no DESC";
+		String sqlBoardList = "SELECT * FROM (SELECT ROWNUM as num, sub.* FROM (SELECT * FROM jspbbs ORDER BY no DESC) sub) WHERE num >= ? AND num <= ?";
 		ArrayList<Board> boardList = null;
 		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlBoardList);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			
 			boardList = new ArrayList<Board>();

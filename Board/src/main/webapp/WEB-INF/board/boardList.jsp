@@ -54,10 +54,11 @@
 					</thead>
 					<tbody class="text-secondary">
 						<c:if test="${ not empty bList }">
-							<c:forEach var="b" items="${bList}">
+							<c:forEach var="b" items="${bList}" varStatus="status">
 								<tr>
 									<td>${ b.no }</td>
-									<td><a href="boardDetail?no=${b.no}"
+									<td><a
+										href="boardDetail?no=${b.no}&pageNum=${currentPage}"
 										class="text-decoration-none link-secondary">${ b.title }</a></td>
 									<td>${ b.writer }</td>
 									<td><fmt:formatDate value="${ b.regDate }"
@@ -75,8 +76,32 @@
 				</table>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:if test="${ startPage > pageGroup }">
+							<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage - pageGroup }">Pre</a></li>
+						</c:if>
+						
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<c:if test="${i == currentPage }">
+								<li class="page-item active" aria-current="page"><span class="page-link">${i}</span></li>
+							</c:if>
+							<c:if test="${i != currentPage }">
+								<li class="page-item"><a class="page-link"
+									href="boardList?pageNum=${ i }">${i}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${ endPage < pageCount }">
+							<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage + pageGroup }">Next</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
 		<!-- Footer -->
-		<%@ include file="../pages/footer.jsp" %>
+		<%@ include file="../pages/footer.jsp"%>
 	</div>
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>

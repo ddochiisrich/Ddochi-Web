@@ -21,6 +21,7 @@
 				<form name="checkForm" id="checkForm">
 					<input type="hidden" name="no" id="no" value="${ board.no }" /> 
 					<input type="hidden" name="pass" id="rPass" />
+					<input type="hidden" name="pageNum" id="pageNum" value="${ pageNum }"/>
 				</form>
 				<div class="row text-center">
 					<div class="col">
@@ -74,7 +75,7 @@
 					<div class="col text-center">
 						<input class="btn btn-warning mx-3" type="button" id="detailUpdate" value="Edit" /> 
 						<input class="btn btn-danger mx-3" type="button" id="detailDelete" value="Delete" />
-						<input class="btn btn-primary mx-3" type="button" value="List" onclick="location.href='boardList'" />
+						<input class="btn btn-primary mx-3" type="button" value="List" onclick="location.href='boardList?pageNum=${ pageNum }'" />
 					</div>
 				</div>
 			</div>
