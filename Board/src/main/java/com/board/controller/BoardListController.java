@@ -78,6 +78,12 @@ public class BoardListController extends HttpServlet {
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("searchOption", searchOption);
+		
+		if(searchOption) {
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("type", type);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/board/boardList.jsp");
 		rd.forward(request, response);
