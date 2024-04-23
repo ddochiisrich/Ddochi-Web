@@ -19,10 +19,24 @@ public class BoardListController extends HttpServlet {
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 	
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		doGet(request, response);
+	}
+
+
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+		
 		
 		if(pageNum == null) {
 			pageNum = "1";
@@ -34,11 +48,19 @@ public class BoardListController extends HttpServlet {
 		int endRow = startRow + PAGE_SIZE - 1;
 		int listCount = 0;
 		
-		
+		ArrayList<Board> bList = null;
 		BoardDao dao = new BoardDao();
-		listCount = dao.getBoardCount();
 		
-		ArrayList<Board> bList = dao.boardList(startRow, endRow);
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
+		if(! searchOption) {
+			listCount = dao.getBoardCount();
+			bList = dao.boardList(startRow, endRow);
+		} else {
+			listCount = dao.getBoardCount(type, keyword);
+			bList = dao.searchList(type, keyword, startRow, endRow);
+		}
+		System.out.println("listCount : " + listCount);
 		
 		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 		
