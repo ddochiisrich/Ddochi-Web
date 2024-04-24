@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="hidden"/>
+		<item key="selection" value="searchForm"/>
 		<list key="findhistory">
+			<item value="searchForm"/>
 			<item value="hidden"/>
 			<item value="pageNum"/>
 			<item value="submit"/>
@@ -22,7 +23,6 @@
 			<item value="pageCount"/>
 			<item value="page"/>
 			<item value="comment"/>
-			<item value="txt"/>
 		</list>
 		<list key="replacehistory">
 			<item value="productcomment"/>
