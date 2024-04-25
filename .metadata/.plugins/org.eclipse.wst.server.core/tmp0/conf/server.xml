@@ -164,7 +164,9 @@
 	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.commons.dbcp2.BasicDataSourceFactory" maxActive="10" maxIdle="5" name="jdbc/bbsDBPool" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"/>	
 </Context><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Challenge" path="/Challenge" reloadable="true" source="org.eclipse.jst.jee.server:Challenge">
 	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.commons.dbcp2.BasicDataSourceFactory" maxActive="10" maxIdle="5" name="jdbc/challengeDBPool" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"/>	
-</Context></Host>
+</Context><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPStudyBBS05" path="/JSPStudyBBS05" reloadable="true" source="org.eclipse.jst.jee.server:JSPStudyBBS05">
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.commons.dbcp2.BasicDataSourceFactory" maxActive="10" maxIdle="5" name="jdbc/bbsDBPool" password="hr" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="hr"/>
+</Context><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPStudyCh08" path="/JSPStudyCh08" reloadable="true" source="org.eclipse.jst.jee.server:JSPStudyCh08"/><Context docBase="/Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPStudyCh09" path="/JSPStudyCh09" reloadable="true" source="org.eclipse.jst.jee.server:JSPStudyCh09"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -1,7 +1,5 @@
 package com.Challenge.vo;
 
-import java.sql.Timestamp;
-
 public class ChallengeMember {
 
 	private int memberNo;
@@ -12,14 +10,14 @@ public class ChallengeMember {
 	private String email;
 	private String address;
 	private String phone;
-	private boolean mailCheck;
+	private String mailCheck;
 	
 	// 기본생성자
 	public ChallengeMember() {}
 
 	// 생성자 오버라이드
 	public ChallengeMember(int memberNo, String nickName, String name, String pass, String id, String email,
-			String address, String phone, boolean mailCheck) {
+			String address, String phone, String mailCheck) {
 		super();
 		this.memberNo = memberNo;
 		this.nickName = nickName;
@@ -31,7 +29,7 @@ public class ChallengeMember {
 		this.phone = phone;
 		this.mailCheck = mailCheck;
 	}
-	
+
 	// Getter, Setter
 	public int getMemberNo() {
 		return memberNo;
@@ -97,13 +95,14 @@ public class ChallengeMember {
 		this.phone = phone;
 	}
 
-	public boolean isMailCheck() {
+	public String getMailCheck() {
 		return mailCheck;
 	}
 
-	public void setMailCheck(boolean mailCheck) {
+	public void setMailCheck(String mailCheck) {
 		this.mailCheck = mailCheck;
 	}
+	
 	
 	
 }

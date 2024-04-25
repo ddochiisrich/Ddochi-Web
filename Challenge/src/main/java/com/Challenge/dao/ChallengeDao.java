@@ -30,6 +30,40 @@ public class ChallengeDao {
 		}	
 	}
 
+	public void signUp(ChallengeMember member){
+		
+		String sqlSignUp = "INSERT INTO member (member_no, nick_name, name, password, id, email, address, phone, mail_check) "
+				+ "VALUES (member_no_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlSignUp);
+			pstmt.setString(1, member.getNickName());
+			pstmt.setString(2, member.getName());
+			pstmt.setString(3, member.getPass());
+			pstmt.setString(4, member.getId());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getPhone());
+			pstmt.setString(8, member.getMailCheck());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public ChallengePost getPost(int no) {
 
 		String sqlPost = "SELECT * FROM post WHERE post_no=?";

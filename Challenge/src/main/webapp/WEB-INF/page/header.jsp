@@ -14,7 +14,7 @@
 
 		<div class="col-6 d-flex justify-content-end">
 			<button type="button" class="btn btn-secondary btn-sm"
-				style="width: 70px;">Sign up</button>
+				style="width: 70px;" onclick="location.href='signUp'">Sign up</button>
 			&nbsp;&nbsp;
 			<button type="button" class="btn btn-secondary btn-sm"
 				style="width: 70px;">Login</button>
