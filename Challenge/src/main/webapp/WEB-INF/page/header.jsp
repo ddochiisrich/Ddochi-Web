@@ -22,7 +22,7 @@
 
 		<div class="row my-5 text-center">
 			<div class="col">
-				<h1>CHALLENGE BLOG</h1>
+				<a href="http://localhost:9000/Challenge/postMain"><h1>CHALLENGE BLOG</h1></a>
 			</div>
 		</div>
 

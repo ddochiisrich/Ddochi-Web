@@ -97,7 +97,7 @@
 						<tr class="my-3">
 							<td>${ p.postNo }</td>
 							<td></td>
-							<td>${ p.postTitle }</td>
+							<td><a href="postDetail?no=${ p.postNo }">${ p.postTitle }</a></td>
 							<%-- <td>${ p.postContent }</td> --%>
 							<td><fmt:formatDate value="${ p.postRegDate }"
 									pattern="MM-dd HH:mm" /></td>
