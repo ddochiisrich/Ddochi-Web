@@ -22,13 +22,18 @@
 
 		<div class="row my-5 text-center">
 			<div class="col">
-				<h1><a href="http://localhost:9000/Challenge/postMain">CHALLENGE BLOG</a></h1>
+				<h1><a href="http://localhost:9000/Challenge/postMain"><img src="./img/logo.png" height="150px"></a></h1>
 			</div>
 		</div>
 
 		<div class="row text-end">
 			<div class="col">
-				<h5>Welcome GUEST</h5>
+				<c:if test="${ not empty nickname }">
+				<h5>Welcome ${ nickname }</h5>
+				</c:if>
+				<c:if test="${ empty nickname }">
+				<h5>&nbsp;</h5>
+				</c:if>
 			</div>
 		</div>
 	</div>

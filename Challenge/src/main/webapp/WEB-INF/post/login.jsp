@@ -27,15 +27,15 @@
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="./img/carousel5.png" class="d-block w-100" alt=""
+							<img src="./img/carousel8.jpg" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 						<div class="carousel-item">
-							<img src="./img/carousel6.jpg" class="d-block w-100" alt=""
+							<img src="./img/carousel9.jpg" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 						<div class="carousel-item">
-							<img src="./img/carousel7.jpg" class="d-block w-100" alt=""
+							<img src="./img/carousel10.jpg" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 					</div>

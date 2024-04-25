@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="col-3">
-		<img alt="" src="https://via.placeholder.com/300x200"><br>
+		<img alt="" src="./img/profile.jpg"><br>
 		<div class="my-3">
 			<h3>Manager</h3>
 		</div>

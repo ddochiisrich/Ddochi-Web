@@ -39,7 +39,11 @@ public class PostLoginController extends HttpServlet{
 			out.close();
 			return;
 		}
-		
+		// 로그인 성공 시 세션에 사용자 정보 저장
+		HttpSession session = request.getSession();
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("nickname", nickname);
+		//////////////////
 		response.sendRedirect("postMain");		
 	}	
 }
