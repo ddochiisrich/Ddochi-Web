@@ -17,12 +17,12 @@
 				style="width: 70px;" onclick="location.href='signUp'">Sign up</button>
 			&nbsp;&nbsp;
 			<button type="button" class="btn btn-secondary btn-sm"
-				style="width: 70px;">Login</button>
+				style="width: 70px;" onclick="location.href='login'">Login</button>
 		</div>
 
 		<div class="row my-5 text-center">
 			<div class="col">
-				<a href="http://localhost:9000/Challenge/postMain"><h1>CHALLENGE BLOG</h1></a>
+				<h1><a href="http://localhost:9000/Challenge/postMain">CHALLENGE BLOG</a></h1>
 			</div>
 		</div>
 

@@ -15,4 +15,5 @@
     <fullyQualifiedTypeName name="java.net.URLEncoder"/>
     <fullyQualifiedTypeName name="javax.naming.Context"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="com.Challenge.vo.ChallengeMember"/>
 </qualifiedTypeNameHistroy>
