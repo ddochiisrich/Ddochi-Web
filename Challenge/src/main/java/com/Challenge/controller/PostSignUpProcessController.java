@@ -48,7 +48,6 @@ public class PostSignUpProcessController extends HttpServlet {
 		
 		dao.signUp(m);
 	
-		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("alert('Sign Up Success');");

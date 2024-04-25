@@ -9,6 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>📕 Challenge BLOG 📕</title>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/formCheck.js"></script>
 </head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
@@ -105,7 +107,7 @@
 					</div>
 				</div>
 				
-				<button type="submit" class="btn btn-secondary">Sign Up</button>
+				<button type="submit" class="btn btn-secondary" id="signUpBtn" name="signUpBtn">Sign Up</button>
 				</form>
 
 
