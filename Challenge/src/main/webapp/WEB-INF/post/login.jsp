@@ -56,14 +56,14 @@
 					</div>
 				</div>
 
-				<form name="signUpForm" id="signUpForm" action="signUpProcess"
+				<form name="loginForm" id="loginForm" action="loginProcess"
 					method="post">
 
 					<div class="row">
 						<div class="col-3"></div>
 						<div class="col-6">
-							<span>ID : </span> <input type="text" name="memberId"
-								id="memberId" class="form-control" maxlength="15"
+							<span>ID : </span> <input type="text" name="memberLoginId"
+								id="memberLoginId" class="form-control" maxlength="15"
 								autofocus />
 						</div>
 						<div class="col-3"></div>
@@ -72,8 +72,8 @@
 					<div class="row">
 						<div class="col-3"></div>
 						<div class="col-6">
-							<span>PASSWORD : </span> <input type="password" name="memberPw1"
-								id="memberPw1" class="form-control" />
+							<span>PASSWORD : </span> <input type="password" name="memberLoginPw1"
+								id="memberLoginPw1" class="form-control" />
 						</div>
 						<div class="col-3"></div>
 					</div>

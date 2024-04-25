@@ -9,11 +9,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.Challenge.dao.ChallengeDao;
+import com.Challenge.vo.ChallengeMember;
 import com.Challenge.vo.ChallengePost;
 
+
+
 @WebServlet("/postMain")
+
 public class PostMainController extends HttpServlet{
 
 	@Override

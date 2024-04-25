@@ -30,6 +30,80 @@ public class ChallengeDao {
 		}	
 	}
 
+	public boolean accountCheck(String id, String pass) {
+		
+		boolean loginCheck = false;
+		String sqlLogin = "SELECT * FROM member WHERE id=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlLogin);
+			
+			pstmt.setString(1, id);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				 String memberId = rs.getString("id");
+		         String memberPassword = rs.getString("password");
+				
+		         if(memberId.equals(id) && memberPassword.equals(pass)) {
+		        	 loginCheck = true;
+		        	 break;
+		         }
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return loginCheck;
+	}
+	
+	public String getNickname(String id, String pass) {
+		
+		String nickname = null;
+		String sqlLogin = "SELECT * FROM member WHERE id=? and password=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlLogin);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				 nickname = rs.getString("nick_name");			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return nickname;
+	}
+	
 	public void signUp(ChallengeMember member){
 		
 		String sqlSignUp = "INSERT INTO member (member_no, nick_name, name, password, id, email, address, phone, mail_check) "
