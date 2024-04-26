@@ -28,7 +28,9 @@ public class PostMainController extends HttpServlet{
 		HttpSession session = request.getSession();
 	    String loginId = (String) session.getAttribute("loginId");
 	    String nickname = (String) session.getAttribute("nickname");
+	    String memberNo = (String) session.getAttribute("memberNo");
 	    request.setAttribute("nickname", nickname);
+	    request.setAttribute("memberNo", memberNo);
 		///////////////
 	    
 		ChallengeDao dao = new ChallengeDao();

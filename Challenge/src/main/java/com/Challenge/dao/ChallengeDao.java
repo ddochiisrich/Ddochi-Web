@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.Challenge.vo.*;
@@ -29,7 +31,106 @@ public class ChallengeDao {
 			e.printStackTrace();
 		}	
 	}
+	
+	public void postUpdate(ChallengePost post) {
+		
+		String sqlUpdate = "UPDATE post set post_title=?, post_content=? WHERE post_no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlUpdate);
+			pstmt.setString(1, post.getPostTitle());
+			pstmt.setString(2, post.getPostContent());
+			pstmt.setInt(3, post.getPostNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	public boolean memberCheck(String no, HttpServletRequest request) {
+		
+		boolean memberCheck = false;
+		
+		HttpSession session = request.getSession();
+		String memberNo = (String) session.getAttribute("memberNo");
+		
+		String sqlMemberCheck = "SELECT * FROM post WHERE post_no=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlMemberCheck);
+			pstmt.setString(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			String postMemberNo = null;
+			if(rs.next()) {
+				
+				postMemberNo = (String) rs.getString("post_member_no");
+				
+			}
+			memberCheck = postMemberNo.equals(memberNo) ? true : false;
 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberCheck;
+		
+	}
+
+	public void insertPost(ChallengePost post, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String memberNo = (String) session.getAttribute("memberNo");
+		
+		String sqlInsert = "INSERT INTO post (post_no, view1, post_content, post_title, like1, post_file, post_reg_date, post_member_no) " 
+						 + "VALUES (post_no.NEXTVAL, 0, ?, ?, 0, 'file', SYSDATE, ?)";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlInsert);
+			pstmt.setString(1, post.getPostContent());
+	        pstmt.setString(2, post.getPostTitle());
+	        pstmt.setString(3, memberNo);
+	        
+	        pstmt.executeUpdate();
+	        
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public boolean accountCheck(String id, String pass) {
 		
 		boolean loginCheck = false;
@@ -102,6 +203,39 @@ public class ChallengeDao {
 			}
 		}
 		return nickname;
+	}
+	
+		public String getMemberNo(String id, String pass) {
+		
+		String memberNo = null;
+		String sqlLogin = "SELECT * FROM member WHERE id=? and password=?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlLogin);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				 memberNo = rs.getString("member_no");			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberNo;
 	}
 	
 	public void signUp(ChallengeMember member){
@@ -177,7 +311,7 @@ public class ChallengeDao {
 
 	public ArrayList<ChallengePost> PostList(){
 
-		String sqlPostList = "SELECT * FROM post ORDER BY post_no DESC";
+		String sqlPostList = "SELECT post.*, member.nick_name FROM post INNER JOIN member ON post.post_member_no = member.member_no ORDER BY post.post_no DESC";
 		ArrayList<ChallengePost> postList = null;
 
 		try {
@@ -197,6 +331,7 @@ public class ChallengeDao {
 				p.setLike1(rs.getInt("like1"));
 				p.setPostRegDate(rs.getTimestamp("post_reg_date"));
 				p.setPostView(rs.getInt("view1"));
+				p.setWriter(rs.getString("nick_name"));
 
 				postList.add(p);
 			}

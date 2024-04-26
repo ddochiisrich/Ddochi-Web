@@ -49,16 +49,6 @@
 					</button>
 				</div>
 
-				<div class="row">
-					<div class="col d-flex justify-content-end">
-						<button type="button" class="btn btn-secondary btn-sm"
-							style="width: 100px;">List Type</button>
-						&nbsp;
-						<button type="button" class="btn btn-secondary btn-sm"
-							style="width: 100px;">Gallery Type</button>
-					</div>
-				</div>
-
 				<div class="row my-2">
 					<div class="col d-flex justify-content-end">
 						<span>post count : </span> &nbsp; <select
@@ -78,7 +68,7 @@
 						<h4>All Post</h4>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
-						<button type="button" class="btn btn-secondary btn-lg mb-2">POST</button>
+						<button type="button" class="btn btn-secondary btn-lg mb-2" onclick="location.href='postForm'">POST</button>
 					</div>
 				</div>
 
@@ -88,6 +78,7 @@
 						<th style="width: 3%" ></th>
 						<th>Title</th>
 						<!-- <th>Content</th> -->
+						<th style="width: 15%">Writer</th>
 						<th style="width: 15%">RegDate</th>
 						<th style="width: 5%">Like</th>
 						<th style="width: 5%">View</th>
@@ -98,7 +89,7 @@
 							<td>${ p.postNo }</td>
 							<td></td>
 							<td><a href="postDetail?no=${ p.postNo }">${ p.postTitle }</a></td>
-							<%-- <td>${ p.postContent }</td> --%>
+							<td>${ p.writer }</td>
 							<td><fmt:formatDate value="${ p.postRegDate }"
 									pattern="MM-dd HH:mm" /></td>
 							<td>${ p.like1 }</td>

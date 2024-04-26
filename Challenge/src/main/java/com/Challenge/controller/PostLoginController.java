@@ -28,6 +28,7 @@ public class PostLoginController extends HttpServlet{
 		boolean loginCheck = dao.accountCheck(loginId, loginPw);
 		
 		String nickname = dao.getNickname(loginId, loginPw);
+		String memberNo = dao.getMemberNo(loginId, loginPw);
 		
 		if(!loginCheck) {
 			response.setContentType("text/html; charset=UTF-8");
@@ -43,6 +44,7 @@ public class PostLoginController extends HttpServlet{
 		HttpSession session = request.getSession();
 		session.setAttribute("loginId", loginId);
 		session.setAttribute("nickname", nickname);
+		session.setAttribute("memberNo", memberNo);
 		//////////////////
 		response.sendRedirect("postMain");		
 	}	

@@ -49,5 +49,26 @@ $(function(){
 			return false;
 		}
 	})
+	
+	$("#postForm").on("submit", function(){
+		if($("#postTitle").val().trim().length <= 0){
+			alert("please enter the Title!")
+			$("#postTitle").focus();
+			return false;
+		}
+		
+		if($("#postContent").val().trim().length <= 0){
+			alert("please enter the Content!")
+			$("#postContent").focus();
+			return false;
+		}
+	})
 
+
+	$("#detailUpdate").on("click", function() {
+
+		$("#postDetailCheck").attr("action", "updateForm");
+		$("#postDetailCheck").attr("method", "post");
+		$("#postDetailCheck").submit();
+	})
 })

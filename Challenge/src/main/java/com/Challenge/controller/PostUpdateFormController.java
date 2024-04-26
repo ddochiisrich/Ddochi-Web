@@ -12,27 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.Challenge.dao.ChallengeDao;
 import com.Challenge.vo.ChallengePost;
 
-@WebServlet("/postDetail")
-public class PostDetailController extends HttpServlet {
+@WebServlet("/updateForm")
+public class PostUpdateFormController extends HttpServlet{
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String no = request.getParameter("no");
-
+		request.setCharacterEncoding("UTF-8");
 		
+		String sNo = request.getParameter("detailPostNo");
+		
+		int no = Integer.parseInt(sNo);
 		
 		ChallengeDao dao = new ChallengeDao();
-		ChallengePost post = dao.getPost(Integer.valueOf(no));
 		
-		boolean check = dao.memberCheck(no, request);
+		ChallengePost post = dao.getPost(no);
 		
 		request.setAttribute("post", post);
-		request.setAttribute("check", check);
 		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postDetail.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postUpdate.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	

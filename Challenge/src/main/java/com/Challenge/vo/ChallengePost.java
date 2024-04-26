@@ -11,14 +11,15 @@ public class ChallengePost {
 	private int like1;
 	private String postFile;
 	private Timestamp postRegDate;
+	private String writer;
 	
 	// 기본생성자
 	public ChallengePost() {}
 	
 	// 생성자 오버라이드
 	public ChallengePost(int postNo, int postView, String postContent, String postTitle, int like1, String postFile,
-			Timestamp postRegDate) {
-		super();
+			Timestamp postRegDate, String writer) {
+
 		this.postNo = postNo;
 		this.postView = postView;
 		this.postContent = postContent;
@@ -26,8 +27,9 @@ public class ChallengePost {
 		this.like1 = like1;
 		this.postFile = postFile;
 		this.postRegDate = postRegDate;
+		this.writer = writer;
 	}
-
+	
 	// Getter, Setter
 	public int getPostNo() {
 		return postNo;
@@ -84,5 +86,14 @@ public class ChallengePost {
 	public void setPostRegDate(Timestamp postRegDate) {
 		this.postRegDate = postRegDate;
 	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	
 
 }

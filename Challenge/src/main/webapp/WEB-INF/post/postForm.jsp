@@ -50,70 +50,40 @@
 						<span class="visually-hidden">Next</span>
 					</button>
 				</div>
+				<div class="row text-center">
+					<div class="col">
+						<h1>Post</h1>
+					</div>
+				</div>
 
-				<form name="postDetailCheck" id="postDetailCheck">
-					<input type="hidden" name="detailPostNo" id="detailPostNo" value="${ post.postNo }" /> 
+				<form name="postForm" action="postProcess" id="postForm" method="post">
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<label for="postTitle" class="form-label">Title</label>
+							<input type="text" class="form-control" id="postTitle" name="postTitle">
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<label for="postContent" class="form-label">Content</label>
+							<textarea class="form-control" style="height: 500px;" id="postContent" name="postContent"></textarea>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8 my-3 d-flex justify-content-center">
+							<button type="submit" class="btn btn-secondary" style="width: 100px;">Post</button> &nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-secondary" style="width: 100px;" onclick="location.href='postMain'">List</button>
+						</div>
+						<div class="col-2"></div>
+					</div>
+
 				</form>
-				
-				<div class="row">
-					<div class="col">
-						<h3>Category</h3>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col">
-						<h1>${ post.postTitle }</h1>
-					</div>
-					<div class="col text-end">
-						<!-- 수정아이콘 -->
-						<c:if test="${ check }">
-						<a id="detailUpdate" type="button"><i class="fa-solid fa-pen-to-square fa-2xl" id="detailUpdate"></i></a>
-						</c:if>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i
-							class="fa-solid fa-share-nodes fa-2xl"></i>
-					</div>
-				</div>
-
-				<hr style="width: 802px; margin: 0 auto;">
-
-				<div class="row">
-					<div class="col-1"></div>
-					<div class="col-10 my-5" style="height: 500px;">${ post.postContent }</div>
-					<div class="col-1"></div>
-				</div>
-				<hr style="width: 802px; margin: 0 auto;">
-
-				<div class="row my-3">
-					<div class="col-1"></div>
-					<div class="col-10">
-						<i class="fa-solid fa-thumbs-up"></i> 좋아요 : ${ post.like1 }
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-eye"></i> 조회수
-						: ${ post.postView }
-					</div>
-					<div class="col-1"></div>
-				</div>
-
-				<hr style="width: 802px; margin: 0 auto;">
-
-
-				<div class="row my-3">
-					<div class="col-1"></div>
-					<div class="col-10">
-						<h4>Comment</h4>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<div class="row my-1">
-					<div class="col-2"></div>
-					<div class="col-8">
-						<pre>ㄴ ADMIN : LOL!!!!!</pre>
-					</div>
-					<div class="col-2"></div>
-				</div>
-
-
-
 				<!-- Footer -->
 				<hr>
 				<%@ include file="../page/footer.jsp"%>
