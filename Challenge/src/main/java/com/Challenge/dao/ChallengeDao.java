@@ -31,20 +31,73 @@ public class ChallengeDao {
 			e.printStackTrace();
 		}	
 	}
-	
+
+	public int getPostCount() {
+		String sqlCount = "SELECT COUNT(*) FROM post";
+		int count = 0;
+		
+		try{
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlCount);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return count;
+	}
+
+	public void postDelete(int no) {
+		String sqlDelete = "DELETE FROM post WHERE post_no=?";
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlDelete);
+			pstmt.setInt(1, no);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
 	public void postUpdate(ChallengePost post) {
-		
-		String sqlUpdate = "UPDATE post set post_title=?, post_content=? WHERE post_no=?";
-		
+
+		String fileUpdate = post.getPostFile() != null ? ", post_file=?" : "";
+		String sqlUpdate = "UPDATE post SET post_title=?, post_content=?" + fileUpdate + " WHERE post_no=?";
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlUpdate);
 			pstmt.setString(1, post.getPostTitle());
 			pstmt.setString(2, post.getPostContent());
-			pstmt.setInt(3, post.getPostNo());
 			
+			if(post.getPostFile() != null) {
+				pstmt.setString(3, post.getPostFile());
+				pstmt.setInt(4, post.getPostNo());
+				} else {
+				pstmt.setInt(3, post.getPostNo());
+				}
+
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -57,35 +110,35 @@ public class ChallengeDao {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
+
 	}
-	
+
 	public boolean memberCheck(String no, HttpServletRequest request) {
-		
+
 		boolean memberCheck = false;
-		
+
 		HttpSession session = request.getSession();
 		String memberNo = (String) session.getAttribute("memberNo");
-		
+
 		String sqlMemberCheck = "SELECT * FROM post WHERE post_no=?";
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlMemberCheck);
 			pstmt.setString(1, no);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			String postMemberNo = null;
 			if(rs.next()) {
-				
+
 				postMemberNo = (String) rs.getString("post_member_no");
-				
+
 			}
 			memberCheck = postMemberNo.equals(memberNo) ? true : false;
 
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -99,26 +152,28 @@ public class ChallengeDao {
 			}
 		}
 		return memberCheck;
-		
+
 	}
 
 	public void insertPost(ChallengePost post, HttpServletRequest request) {
-		
+
 		HttpSession session = request.getSession();
 		String memberNo = (String) session.getAttribute("memberNo");
-		
+
 		String sqlInsert = "INSERT INTO post (post_no, view1, post_content, post_title, like1, post_file, post_reg_date, post_member_no) " 
-						 + "VALUES (post_no.NEXTVAL, 0, ?, ?, 0, 'file', SYSDATE, ?)";
-		
+				+ "VALUES (post_no.NEXTVAL, 0, ?, ?, 0, ?, SYSDATE, ?)";
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlInsert);
 			pstmt.setString(1, post.getPostContent());
-	        pstmt.setString(2, post.getPostTitle());
-	        pstmt.setString(3, memberNo);
-	        
-	        pstmt.executeUpdate();
-	        
+			pstmt.setString(2, post.getPostTitle());
+			pstmt.setString(3, post.getPostFile());
+			pstmt.setString(4, memberNo);
+			
+
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -130,33 +185,33 @@ public class ChallengeDao {
 			}
 		}
 	}
-	
+
 	public boolean accountCheck(String id, String pass) {
-		
+
 		boolean loginCheck = false;
 		String sqlLogin = "SELECT * FROM member WHERE id=?";
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlLogin);
-			
+
 			pstmt.setString(1, id);
-			
-			
+
+
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
-				
-				 String memberId = rs.getString("id");
-		         String memberPassword = rs.getString("password");
-				
-		         if(memberId.equals(id) && memberPassword.equals(pass)) {
-		        	 loginCheck = true;
-		        	 break;
-		         }
-			
+
+				String memberId = rs.getString("id");
+				String memberPassword = rs.getString("password");
+
+				if(memberId.equals(id) && memberPassword.equals(pass)) {
+					loginCheck = true;
+					break;
+				}
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -171,25 +226,25 @@ public class ChallengeDao {
 		}
 		return loginCheck;
 	}
-	
+
 	public String getNickname(String id, String pass) {
-		
+
 		String nickname = null;
 		String sqlLogin = "SELECT * FROM member WHERE id=? and password=?";
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlLogin);
-			
+
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
-				 nickname = rs.getString("nick_name");			
+				nickname = rs.getString("nick_name");			
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -204,25 +259,25 @@ public class ChallengeDao {
 		}
 		return nickname;
 	}
-	
-		public String getMemberNo(String id, String pass) {
-		
+
+	public String getMemberNo(String id, String pass) {
+
 		String memberNo = null;
 		String sqlLogin = "SELECT * FROM member WHERE id=? and password=?";
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlLogin);
-			
+
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
-				 memberNo = rs.getString("member_no");			
+				memberNo = rs.getString("member_no");			
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -237,14 +292,14 @@ public class ChallengeDao {
 		}
 		return memberNo;
 	}
-	
+
 	public void signUp(ChallengeMember member){
-		
+
 		String sqlSignUp = "INSERT INTO member (member_no, nick_name, name, password, id, email, address, phone, mail_check) "
 				+ "VALUES (member_no_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
-		
-		
+
+
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlSignUp);
@@ -256,7 +311,7 @@ public class ChallengeDao {
 			pstmt.setString(6, member.getAddress());
 			pstmt.setString(7, member.getPhone());
 			pstmt.setString(8, member.getMailCheck());
-			
+
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -271,7 +326,7 @@ public class ChallengeDao {
 			}
 		}
 	}
-	
+
 	public ChallengePost getPost(int no) {
 
 		String sqlPost = "SELECT * FROM post WHERE post_no=?";
@@ -309,14 +364,18 @@ public class ChallengeDao {
 		return post;
 	}
 
-	public ArrayList<ChallengePost> PostList(){
+	public ArrayList<ChallengePost> PostList(int startRow, int endRow){
 
-		String sqlPostList = "SELECT post.*, member.nick_name FROM post INNER JOIN member ON post.post_member_no = member.member_no ORDER BY post.post_no DESC";
+		String sqlPostList = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM (SELECT * FROM post ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
+
+		
 		ArrayList<ChallengePost> postList = null;
 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlPostList);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 
 			postList = new ArrayList<ChallengePost>();

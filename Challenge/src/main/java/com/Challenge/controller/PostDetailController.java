@@ -1,6 +1,7 @@
 package com.Challenge.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,8 +20,17 @@ public class PostDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String no = request.getParameter("no");
+		String pageNum = request.getParameter("pageNum");
 
-		
+		if(no == null || no.equals("") || pageNum == null || pageNum.equals("")) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println(" alert('The wrong approach');");
+			out.println(" history.back();");
+			out.println("</script>");
+			return;
+		}
 		
 		ChallengeDao dao = new ChallengeDao();
 		ChallengePost post = dao.getPost(Integer.valueOf(no));
@@ -29,6 +39,7 @@ public class PostDetailController extends HttpServlet {
 		
 		request.setAttribute("post", post);
 		request.setAttribute("check", check);
+		request.setAttribute("pageNum", pageNum);
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postDetail.jsp");

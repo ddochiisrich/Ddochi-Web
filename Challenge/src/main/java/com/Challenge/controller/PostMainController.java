@@ -21,6 +21,9 @@ import com.Challenge.vo.ChallengePost;
 
 public class PostMainController extends HttpServlet{
 
+	private static final int PAGE_SIZE = 10;
+	private static final int PAGE_GROUP = 10;
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -33,10 +36,37 @@ public class PostMainController extends HttpServlet{
 	    request.setAttribute("memberNo", memberNo);
 		///////////////
 	    
+	    String pageNum = request.getParameter("pageNum");
+	    
+	    if(pageNum == null) {
+	    	pageNum = "1";
+	    }
+	    
+	    int currentPage = Integer.parseInt(pageNum);
+	    
+	    int startRow = currentPage * PAGE_SIZE - (PAGE_SIZE - 1);
+	    int endRow = startRow + PAGE_SIZE - 1;
+	    int listCount = 0;
+	    
 		ChallengeDao dao = new ChallengeDao();
-		ArrayList<ChallengePost> cPost = dao.PostList();
+		listCount = dao.getPostCount();
+		
+		ArrayList<ChallengePost> cPost = dao.PostList(startRow, endRow);
+		
+		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
+		int startPage = (currentPage / PAGE_GROUP) * PAGE_GROUP + 1 - (currentPage % PAGE_GROUP == 0 ? PAGE_GROUP : 0);
+		int endPage = startPage + PAGE_GROUP -1;
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
 		
 		request.setAttribute("cPost", cPost);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageGroup", PAGE_GROUP);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postList.jsp");
 		rd.forward(request, response);	

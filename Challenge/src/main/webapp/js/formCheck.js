@@ -71,4 +71,13 @@ $(function(){
 		$("#postDetailCheck").attr("method", "post");
 		$("#postDetailCheck").submit();
 	})
+	
+	$("#detailDelete").on("click", function(){
+		
+		$("#postDetailCheck").attr("action", "deleteProcess");
+		$("#postDetailCheck").attr("method", "post");
+		$("#postDetailCheck").submit();
+	})
+	
+	
 })

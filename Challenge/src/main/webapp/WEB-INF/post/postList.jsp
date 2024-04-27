@@ -16,9 +16,9 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-		<%@ include file="../page/header.jsp" %>
+		<%@ include file="../page/header.jsp"%>
 		<div class="row">
-			<%@ include file="../page/leftSide.jsp" %>
+			<%@ include file="../page/leftSide.jsp"%>
 			<div class="col-9">
 				<!-- 캐러셀 -->
 				<div id="carouselExampleAutoplaying" class="carousel slide mb-3"
@@ -68,57 +68,73 @@
 						<h4>All Post</h4>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
-						<button type="button" class="btn btn-secondary btn-lg mb-2" onclick="location.href='postForm'">POST</button>
+						<button type="button" class="btn btn-secondary btn-lg mb-2"
+							onclick="location.href='postForm'">POST</button>
 					</div>
 				</div>
 
 				<table class="table table-hover">
 					<tr class="table-dark">
-						<th style="width: 3%" >No</th>
-						<th style="width: 3%" ></th>
+						<th style="width: 3%">No</th>
+						<th style="width: 3%"></th>
 						<th>Title</th>
 						<!-- <th>Content</th> -->
 						<th style="width: 15%">Writer</th>
 						<th style="width: 15%">RegDate</th>
 						<th style="width: 5%">Like</th>
 						<th style="width: 5%">View</th>
-						<th style="width: 3%"></th>
 					</tr>
-					<c:forEach var="p" items="${ cPost }">
-						<tr class="my-3">
-							<td>${ p.postNo }</td>
-							<td></td>
-							<td><a href="postDetail?no=${ p.postNo }">${ p.postTitle }</a></td>
-							<td>${ p.writer }</td>
-							<td><fmt:formatDate value="${ p.postRegDate }"
-									pattern="MM-dd HH:mm" /></td>
-							<td>${ p.like1 }</td>
-							<td>${ p.postView }</td>
-							<td><a href="#"><i class="fa-solid fa-trash"></i></a></td>
+					<c:if test="${ not empty cPost }">
+						<c:forEach var="p" items="${ cPost }" varStatus="status">
+							<tr class="my-3">
+								<td>${ p.postNo }</td>
+								<td></td>
+								<td><a
+									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}">${ p.postTitle }</a></td>
+								<td>${ p.writer }</td>
+								<td><fmt:formatDate value="${ p.postRegDate }"
+										pattern="MM-dd HH:mm" /></td>
+								<td>${ p.like1 }</td>
+								<td>${ p.postView }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty cPost }">
+						<tr>
+							<td colspan="5" class="text-center">POST does not exist.
+								Please contact the admin</td>
 						</tr>
-					</c:forEach>
+					</c:if>
 				</table>
 				<div class="row">
-					<div class="col d-flex justify-content-center">
+					<div class="col">
 						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
+							<ul class="pagination justify-content-center">
+								<c:if test="${ startPage > pageGroup }">
+									<li class="page-item"><a class="page-link"
+										href="postMain?pageNum=${ startPage - pageGroup }"
+										aria-label="Previous"> Pre </a></li>
+								</c:if>
+								<c:forEach var="i" begin="${startPage}" end="${endPage}">
+									<c:if test="${i == currentPage }">
+									</c:if>
+									<c:if test="${ i != cuerrentPage }">
+										<li class="page-item"><a class="page-link"
+											href="postMain?pageNum=${ i }">${ i }</a></li>
+									</c:if>
+								</c:forEach>
+								<c:if test="${ endPage < pageCount }">
+									<li class="page-item"><a class="page-link"
+										href="postMain?pageNum=${ startPage + pageGroup }">Next</a></li>
+								</c:if>
 							</ul>
 						</nav>
 					</div>
 				</div>
-				
+
 				<!-- Footer -->
 				<hr>
-				<%@ include file="../page/footer.jsp" %>
+				<%@ include file="../page/footer.jsp"%>
 			</div>
 		</div>
 	</div>

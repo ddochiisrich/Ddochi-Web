@@ -56,14 +56,17 @@
 					</div>
 				</div>
 
-				<form name="postForm" action="updateProcess" id="postForm" method="post">
-				<input type="hidden" name="updateNo" value="${ post.postNo }">
+				<form name="postForm" action="updateProcess" id="postForm"
+					method="post" ${ empty post.postFile ? "" : "enctype='multipart/form-data'"}>
+					<input type="hidden" name="updatePageNum" value="${pageNum}" /> 
+					<input type="hidden" name="updateNo" value="${ post.postNo }">
 
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8">
-							<label for="postTitle" class="form-label">Title</label>
-							<input type="text" class="form-control" id="postTitle" name="postTitle" value="${ post.postTitle }">
+							<label for="postTitle" class="form-label">Title</label> <input
+								type="text" class="form-control" id="postTitle" name="postTitle"
+								value="${ post.postTitle }">
 						</div>
 						<div class="col-2"></div>
 					</div>
@@ -71,15 +74,27 @@
 						<div class="col-2"></div>
 						<div class="col-8">
 							<label for="postContent" class="form-label">Content</label>
-							<textarea class="form-control" style="height: 500px;" id="postContent" name="postContent">${ post.postContent }</textarea>
+							<textarea class="form-control" style="height: 500px;"
+								id="postContent" name="postContent">${ post.postContent }</textarea>
 						</div>
 						<div class="col-2"></div>
 					</div>
+
+					<c:if test="${empty post.postFile}">
+						<div class="col-8 offset-md-2">
+							<label for="updatePostFile" class="form-label">File</label>
+							<input type="file" class="form-control" name="updatePostFile" id="updatePostFile">
+						</div>
+					</c:if>
+
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8 my-3 d-flex justify-content-center">
-							<button type="submit" class="btn btn-secondary" style="width: 100px;">Post</button> &nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-secondary" style="width: 100px;" onclick="location.href='postMain'">List</button>
+							<button type="submit" class="btn btn-secondary"
+								style="width: 100px;">Post</button>
+							&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-secondary"
+								style="width: 100px;" onclick="location.href='postMain?pageNum=${pageNum}'">List</button>
 						</div>
 						<div class="col-2"></div>
 					</div>

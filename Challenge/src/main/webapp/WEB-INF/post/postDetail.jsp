@@ -53,8 +53,9 @@
 
 				<form name="postDetailCheck" id="postDetailCheck">
 					<input type="hidden" name="detailPostNo" id="detailPostNo" value="${ post.postNo }" /> 
+					<input type="hidden" name="detailPostPageNum" id="detailPostPageNum" value="${ pageNum }" />
 				</form>
-				
+
 				<div class="row">
 					<div class="col">
 						<h3>Category</h3>
@@ -66,9 +67,16 @@
 						<h1>${ post.postTitle }</h1>
 					</div>
 					<div class="col text-end">
+						<!-- 삭제아이콘 -->
+						<c:if test="${ check }">
+							<a type="button" id="detailDelete"><i
+								class="fa-solid fa-trash fa-2xl"></i></a>
+						</c:if>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<!-- 수정아이콘 -->
 						<c:if test="${ check }">
-						<a id="detailUpdate" type="button"><i class="fa-solid fa-pen-to-square fa-2xl" id="detailUpdate"></i></a>
+							<a id="detailUpdate" type="button"><i
+								class="fa-solid fa-pen-to-square fa-2xl" id="detailUpdate"></i></a>
 						</c:if>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i
 							class="fa-solid fa-share-nodes fa-2xl"></i>
@@ -82,6 +90,23 @@
 					<div class="col-10 my-5" style="height: 500px;">${ post.postContent }</div>
 					<div class="col-1"></div>
 				</div>
+
+				<div class="row">
+					<div class="col">
+						<input class="btn btn-primary" type="button" value="List"
+							onclick="location.href='postMain?pageNum=${ pageNum }'" />
+					</div>
+				</div>
+							<div class="row">
+								<div class="col">
+									<c:if test="${ empty post.postFile }"> Not Found File</c:if>
+									
+									<c:if test="${ not empty post.postFile }">
+										<a href="upload/${ post.postFile }">${ post.postFile }</a>
+									</c:if>
+								</div>
+							</div>
+
 				<hr style="width: 802px; margin: 0 auto;">
 
 				<div class="row my-3">
@@ -111,9 +136,6 @@
 					</div>
 					<div class="col-2"></div>
 				</div>
-
-
-
 				<!-- Footer -->
 				<hr>
 				<%@ include file="../page/footer.jsp"%>

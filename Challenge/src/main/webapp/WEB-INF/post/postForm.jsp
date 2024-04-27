@@ -56,13 +56,14 @@
 					</div>
 				</div>
 
-				<form name="postForm" action="postProcess" id="postForm" method="post">
+				<form name="postForm" action="postProcess" id="postForm"
+					method="post" enctype="multipart/form-data">
 
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8">
-							<label for="postTitle" class="form-label">Title</label>
-							<input type="text" class="form-control" id="postTitle" name="postTitle">
+							<label for="postTitle" class="form-label">Title</label> <input
+								type="text" class="form-control" id="postTitle" name="postTitle">
 						</div>
 						<div class="col-2"></div>
 					</div>
@@ -70,15 +71,24 @@
 						<div class="col-2"></div>
 						<div class="col-8">
 							<label for="postContent" class="form-label">Content</label>
-							<textarea class="form-control" style="height: 500px;" id="postContent" name="postContent"></textarea>
+							<textarea class="form-control" style="height: 500px;"
+								id="postContent" name="postContent"></textarea>
 						</div>
 						<div class="col-2"></div>
 					</div>
+					<div class="col-8 offset-md-2">
+						<label for="file1" class="form-label">File</label> <input
+							type="file" class="form-control" name="file1" id="file1">
+					</div>
+
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8 my-3 d-flex justify-content-center">
-							<button type="submit" class="btn btn-secondary" style="width: 100px;">Post</button> &nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-secondary" style="width: 100px;" onclick="location.href='postMain'">List</button>
+							<button type="submit" class="btn btn-secondary"
+								style="width: 100px;">Post</button>
+							&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-secondary"
+								style="width: 100px;" onclick="location.href='postMain'">List</button>
 						</div>
 						<div class="col-2"></div>
 					</div>
