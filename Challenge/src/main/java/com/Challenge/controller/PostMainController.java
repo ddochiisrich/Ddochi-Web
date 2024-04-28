@@ -24,6 +24,16 @@ public class PostMainController extends HttpServlet{
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 	
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		doGet(request, response);
+	}
+
+
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -37,6 +47,8 @@ public class PostMainController extends HttpServlet{
 		///////////////
 	    
 	    String pageNum = request.getParameter("pageNum");
+	    String type = request.getParameter("type");
+	    String keyword = request.getParameter("keyword");
 	    
 	    if(pageNum == null) {
 	    	pageNum = "1";
@@ -53,6 +65,19 @@ public class PostMainController extends HttpServlet{
 		
 		ArrayList<ChallengePost> cPost = dao.PostList(startRow, endRow);
 		
+		boolean searchOption = (type == null || type.equals("")
+				|| keyword == null || keyword.equals("")) ? false : true;
+
+				if(! searchOption) {
+
+				listCount = dao.getPostCount();
+				cPost = dao.PostList(startRow, endRow);
+				} else { 
+				listCount = dao.getPostCount(type, keyword);
+				cPost = dao.searchList(type, keyword, startRow, endRow);
+				}
+				System.out.println("listCount : " + listCount);
+		
 		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 		int startPage = (currentPage / PAGE_GROUP) * PAGE_GROUP + 1 - (currentPage % PAGE_GROUP == 0 ? PAGE_GROUP : 0);
 		int endPage = startPage + PAGE_GROUP -1;
@@ -67,6 +92,12 @@ public class PostMainController extends HttpServlet{
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("searchOption", searchOption);
+		
+		if(searchOption) {
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("type", type);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postList.jsp");
 		rd.forward(request, response);	

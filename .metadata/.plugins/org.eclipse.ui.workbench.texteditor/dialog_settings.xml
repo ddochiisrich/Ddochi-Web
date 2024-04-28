@@ -6,15 +6,16 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="detailUpdate"/>
+		<item key="selection" value="form"/>
 		<list key="findhistory">
+			<item value="form"/>
+			<item value="detailPostNo"/>
 			<item value="detailUpdate"/>
 			<item value="auto"/>
 			<item value="searchForm"/>
 			<item value="hidden"/>
 			<item value="pageNum"/>
 			<item value="submit"/>
-			<item value="form"/>
 			<item value="file"/>
 			<item value="html"/>
 			<item value="productAdd"/>
@@ -22,7 +23,6 @@
 			<item value="enc"/>
 			<item value="multipart"/>
 			<item value="check"/>
-			<item value="pageCount"/>
 		</list>
 		<list key="replacehistory">
 			<item value="productcomment"/>

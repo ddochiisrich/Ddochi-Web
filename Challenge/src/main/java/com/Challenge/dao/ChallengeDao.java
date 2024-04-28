@@ -32,10 +32,79 @@ public class ChallengeDao {
 		}	
 	}
 
+	public ArrayList<ChallengePost> searchList(
+			String type, String keyword, int startRow, int endRow) {
+		
+		String sqlSearchList = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM (SELECT * FROM post WHERE \" + type + \" LIKE ? ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
+		ArrayList<ChallengePost> postList = null;
+		try{
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlSearchList);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			postList = new ArrayList<ChallengePost>();
+			
+			while(rs.next()) {
+				ChallengePost p = new ChallengePost();
+
+				p.setPostNo(rs.getInt("post_no"));
+				p.setPostTitle(rs.getString("post_title"));
+				p.setPostContent(rs.getString("post_content"));
+				p.setPostFile(rs.getString("post_file"));
+				p.setLike1(rs.getInt("like1"));
+				p.setPostRegDate(rs.getTimestamp("post_reg_date"));
+				p.setPostView(rs.getInt("view1"));
+				p.setWriter(rs.getString("nick_name"));
+
+				postList.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return postList;
+	}
+
+	public int getPostCount(String type, String keyword) {
+		System.out.println(type + " - " + keyword);
+
+		String sqlCount = "SELECT COUNT(*) FROM post WHERE "
+				+ type + " LIKE '%' || ? || '%'";
+
+		int count = 0;
+		try{
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlCount);
+			pstmt.setString(1, keyword);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return count;
+	}
+
+
 	public int getPostCount() {
 		String sqlCount = "SELECT COUNT(*) FROM post";
 		int count = 0;
-		
+
 		try{
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlCount);
@@ -88,13 +157,13 @@ public class ChallengeDao {
 			pstmt = conn.prepareStatement(sqlUpdate);
 			pstmt.setString(1, post.getPostTitle());
 			pstmt.setString(2, post.getPostContent());
-			
+
 			if(post.getPostFile() != null) {
 				pstmt.setString(3, post.getPostFile());
 				pstmt.setInt(4, post.getPostNo());
-				} else {
+			} else {
 				pstmt.setInt(3, post.getPostNo());
-				}
+			}
 
 			pstmt.executeUpdate();
 
@@ -170,7 +239,7 @@ public class ChallengeDao {
 			pstmt.setString(2, post.getPostTitle());
 			pstmt.setString(3, post.getPostFile());
 			pstmt.setString(4, memberNo);
-			
+
 
 			pstmt.executeUpdate();
 
@@ -368,7 +437,7 @@ public class ChallengeDao {
 
 		String sqlPostList = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM (SELECT * FROM post ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
 
-		
+
 		ArrayList<ChallengePost> postList = null;
 
 		try {

@@ -73,6 +73,27 @@
 					</div>
 				</div>
 
+				<c:if test="${ searchOption }">
+					<div class="row my-3">
+						<div class="col text-center">"${ keyword }" 검색 결과</div>
+					</div>
+					<div class="row my-3">
+						<div class="col">
+							<a href="boardList" class="btn btn-outline-success">리스트</a>
+						</div>
+
+					</div>
+				</c:if>
+				<!-- 검색 요청이 아닐 경우 아래를 화면에 표시 -->
+				<c:if test="${ not searchOption }">
+					<div class="row my-3">
+						<div class="col text-end">
+							<a href="#">&nbsp;</a>
+						</div>
+					</div>
+				</c:if>
+
+
 				<table class="table table-hover">
 					<tr class="table-dark">
 						<th style="width: 3%">No</th>
@@ -84,7 +105,22 @@
 						<th style="width: 5%">Like</th>
 						<th style="width: 5%">View</th>
 					</tr>
-					<c:if test="${ not empty cPost }">
+					<c:if test="${ searchOption and not empty cPost }">
+						<c:forEach var="p" items="${ cPost }" varStatus="status">
+							<tr class="my-3">
+								<td>${ p.postNo }</td>
+								<td></td>
+								<td><a
+									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}&type=${type}&keyword=${keyword}">${ p.postTitle }</a></td>
+								<td>${ p.writer }</td>
+								<td><fmt:formatDate value="${ p.postRegDate }"
+										pattern="MM-dd HH:mm" /></td>
+								<td>${ p.like1 }</td>
+								<td>${ p.postView }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ searchOption and not empty cPost }">
 						<c:forEach var="p" items="${ cPost }" varStatus="status">
 							<tr class="my-3">
 								<td>${ p.postNo }</td>
@@ -99,42 +135,77 @@
 							</tr>
 						</c:forEach>
 					</c:if>
-					<c:if test="${ empty cPost }">
+					<c:if test="${ searchOption and empty cPost }">
+						<tr>
+							<td colspan="5" class="text-center">${ keyword }+ POST does
+								not exist. Please contact the admin</td>
+						</tr>
+					</c:if>
+					<c:if test="${ not searchOption and empty cPost }">
 						<tr>
 							<td colspan="5" class="text-center">POST does not exist.
 								Please contact the admin</td>
 						</tr>
 					</c:if>
 				</table>
-				<div class="row">
-					<div class="col">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								<c:if test="${ startPage > pageGroup }">
-									<li class="page-item"><a class="page-link"
-										href="postMain?pageNum=${ startPage - pageGroup }"
-										aria-label="Previous"> Pre </a></li>
-								</c:if>
-								<c:forEach var="i" begin="${startPage}" end="${endPage}">
-									<c:if test="${i == currentPage }">
-									</c:if>
-									<c:if test="${ i != cuerrentPage }">
+				<c:if test="${ searchOption and not empty cPost }">
+					<div class="row">
+						<div class="col">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<c:if test="${ startPage > pageGroup }">
 										<li class="page-item"><a class="page-link"
-											href="postMain?pageNum=${ i }">${ i }</a></li>
+											href="boardList?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
+											aria-label="Previous"> Pre </a></li>
 									</c:if>
-								</c:forEach>
-								<c:if test="${ endPage < pageCount }">
-									<li class="page-item"><a class="page-link"
-										href="postMain?pageNum=${ startPage + pageGroup }">Next</a></li>
-								</c:if>
-							</ul>
-						</nav>
+									
+									<c:forEach var="i" begin="${startPage}" end="${endPage}">
+										<c:if test="${i == currentPage }">
+										</c:if>
+										<c:if test="${ i != cuerrentPage }">
+											<li class="page-item"><a class="page-link"
+												href="boardList?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${ endPage < pageCount }">
+										<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
 					</div>
-				</div>
-
-				<!-- Footer -->
-				<hr>
-				<%@ include file="../page/footer.jsp"%>
+				</c:if>
+				
+				<c:if test="${ not searchOption and not empty cPost }">
+					<div class="row">
+						<div class="col">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<c:if test="${ startPage > pageGroup }">
+										<li class="page-item"><a class="page-link"
+											href="boardList?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
+											aria-label="Previous"> Pre </a></li>
+									</c:if>
+									
+									<c:forEach var="i" begin="${startPage}" end="${endPage}">
+										<c:if test="${i == currentPage }">
+										</c:if>
+										<c:if test="${ i != cuerrentPage }">
+											<li class="page-item"><a class="page-link"
+												href="boardList?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${ endPage < pageCount }">
+										<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</c:if>
+					<!-- Footer -->
+					<hr>
+					<%@ include file="../page/footer.jsp"%>
 			</div>
 		</div>
 	</div>

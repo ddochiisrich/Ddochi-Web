@@ -20,13 +20,15 @@
 				Ipsum, you need to be sure there isn't anything embarrassing hidden
 				in the middle of text. </span>
 		</div>
+		<form name="searchForm" id="searchForm" action="#">
 		<div class="input-group my-3">
 			<input type="text" class="form-control"
 				placeholder="Please enter your keyword"
-				aria-label="Recipient's username" aria-describedby="button-addon2">
+				aria-label="Recipient's username" aria-describedby="button-addon2" id="keyword">
 			<button class="btn btn-outline-secondary" type="button"
 				id="button-addon2">Search</button>
 		</div>
+		</form>
 		<hr>
 		<div class="my-3">
 			Category<br>
