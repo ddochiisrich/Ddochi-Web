@@ -32,6 +32,26 @@ public class ChallengeDao {
 		}	
 	}
 
+	public void plusView(int no) {
+		
+		String sqlPlusView = "UPDATE post SET view1 = view1 + 1 WHERE post_no = ?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlPlusView);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		
+	}
+	
 	public ArrayList<ChallengePost> searchList(
 			String type, String keyword, int startRow, int endRow) {
 		

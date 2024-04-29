@@ -52,6 +52,9 @@ public class PostDetailController extends HttpServlet {
 			
 		}
 		
+		int viewPostNo = Integer.parseInt(no);
+		dao.plusView(viewPostNo);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postDetail.jsp");
 		rd.forward(request, response);
 	}
