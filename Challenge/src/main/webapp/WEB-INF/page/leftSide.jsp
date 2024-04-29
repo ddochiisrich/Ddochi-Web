@@ -22,19 +22,19 @@
 				Ipsum, you need to be sure there isn't anything embarrassing hidden
 				in the middle of text. </span>
 		</div>
-		<form name="searchForm" id="searchForm" action="#">
+		<form name="searchForm" id="searchForm">
 			<div class="row input-group my-3">
 				<div class="col-4">
 					<select name="type" id="type" class="form-control">
-						<option>제목</option>
-						<option>글쓴이</option>
+						<option value="post_title">제목</option>
+						<option value="nick_name">글쓴이</option>
 					</select>
 				</div>
 				<div class="col-8">
 				<input type="text" class="form-control"
 					placeholder="Please enter your keyword"
 					aria-label="Recipient's username" aria-describedby="button-addon2"
-					id="keyword">
+					id="keyword" name="keyword">
 					</div>
 			</div>
 			<div class="row">

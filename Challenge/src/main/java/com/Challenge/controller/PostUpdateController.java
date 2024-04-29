@@ -121,7 +121,7 @@ public class PostUpdateController extends HttpServlet{
 		
 		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
 		
-		String url = "boardList?pageNum=" + pageNum;
+		String url = "postMain?pageNum=" + pageNum;
 
 		if(searchOption) {
 			keyword = URLEncoder.encode(keyword, "UTF-8");

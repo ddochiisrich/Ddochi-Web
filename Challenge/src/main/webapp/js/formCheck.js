@@ -79,13 +79,5 @@ $(function(){
 		$("#postDetailCheck").submit();
 	})
 	
-	$("#searchForm").on("submit", function() {
-		var keyword = $("#keyword").val();
-		if(keyword.length <= 0) {
-		alert("please enter the keyword!!");
-		return false;
-	}
-		$(this).attr("method", "post");
-		$(this).attr("action", "postMain");
-	});
+	
 })

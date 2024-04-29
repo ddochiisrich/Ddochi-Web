@@ -72,6 +72,7 @@ public class PostMainController extends HttpServlet{
 
 				listCount = dao.getPostCount();
 				cPost = dao.PostList(startRow, endRow);
+				
 				} else { 
 				listCount = dao.getPostCount(type, keyword);
 				cPost = dao.searchList(type, keyword, startRow, endRow);

@@ -35,11 +35,17 @@ public class ChallengeDao {
 	public ArrayList<ChallengePost> searchList(
 			String type, String keyword, int startRow, int endRow) {
 		
-		String sqlSearchList = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM (SELECT * FROM post WHERE \" + type + \" LIKE ? ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
+		String sqlSearchList = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM (SELECT * FROM post WHERE " + type + " LIKE ? ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
+				
+		String sqlSearchListNickname = "SELECT p.*, m.nick_name FROM (SELECT ROWNUM num, post_no, post_title, post_content, post_file, like1, post_reg_date, view1, post_member_no FROM ( SELECT *  FROM post  WHERE post_member_no IN (SELECT member_no FROM member WHERE " + type + " LIKE ?) ORDER BY post_no DESC)) p JOIN member m ON p.post_member_no = m.member_no WHERE p.num >= ? AND p.num <= ?";
 		ArrayList<ChallengePost> postList = null;
 		try{
 			conn = ds.getConnection();
+			if(type.equals("nick_name")) {
+				pstmt = conn.prepareStatement(sqlSearchListNickname);
+			}else if(type.equals("post_title")) {
 			pstmt = conn.prepareStatement(sqlSearchList);
+			}
 			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
@@ -79,10 +85,23 @@ public class ChallengeDao {
 		String sqlCount = "SELECT COUNT(*) FROM post WHERE "
 				+ type + " LIKE '%' || ? || '%'";
 
+		String sqlCountNickname = "SELECT COUNT(*) "
+				+ "FROM post "
+				+ "WHERE post_member_no IN ("
+				+ "    SELECT member_no "
+				+ "    FROM member"
+				+ "    WHERE " + type + " LIKE '%' || ? || '%'"
+				+ ")";
+		
 		int count = 0;
 		try{
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sqlCount);
+			if(!type.equals("nick_name")) {
+				pstmt = conn.prepareStatement(sqlCount);
+				}
+			if(type.equals("nick_name")) {
+				pstmt = conn.prepareStatement(sqlCountNickname);
+				}
 			pstmt.setString(1, keyword);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {

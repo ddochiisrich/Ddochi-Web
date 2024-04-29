@@ -16,6 +16,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
+	<%@ include file="../page/teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -79,7 +80,7 @@
 					</div>
 					<div class="row my-3">
 						<div class="col">
-							<a href="boardList" class="btn btn-outline-success">리스트</a>
+							<a href="postMain" class="btn btn-outline-success">리스트</a>
 						</div>
 
 					</div>
@@ -137,7 +138,7 @@
 					</c:if>
 					<c:if test="${ searchOption and empty cPost }">
 						<tr>
-							<td colspan="5" class="text-center">${ keyword }+ POST does
+							<td colspan="5" class="text-center">${ keyword } POST does
 								not exist. Please contact the admin</td>
 						</tr>
 					</c:if>
@@ -155,7 +156,7 @@
 								<ul class="pagination justify-content-center">
 									<c:if test="${ startPage > pageGroup }">
 										<li class="page-item"><a class="page-link"
-											href="boardList?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
+											href="postMain?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
 											aria-label="Previous"> Pre </a></li>
 									</c:if>
 									
@@ -164,11 +165,11 @@
 										</c:if>
 										<c:if test="${ i != cuerrentPage }">
 											<li class="page-item"><a class="page-link"
-												href="boardList?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
+												href="postMain?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
 										</c:if>
 									</c:forEach>
 									<c:if test="${ endPage < pageCount }">
-										<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+										<li class="page-item"><a class="page-link" href="postMain?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
 									</c:if>
 								</ul>
 							</nav>
@@ -183,7 +184,7 @@
 								<ul class="pagination justify-content-center">
 									<c:if test="${ startPage > pageGroup }">
 										<li class="page-item"><a class="page-link"
-											href="boardList?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
+											href="postMain?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
 											aria-label="Previous"> Pre </a></li>
 									</c:if>
 									
@@ -192,11 +193,11 @@
 										</c:if>
 										<c:if test="${ i != cuerrentPage }">
 											<li class="page-item"><a class="page-link"
-												href="boardList?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
+												href="postMain?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
 										</c:if>
 									</c:forEach>
 									<c:if test="${ endPage < pageCount }">
-										<li class="page-item"><a class="page-link" href="boardList?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+										<li class="page-item"><a class="page-link" href="postMain?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
 									</c:if>
 								</ul>
 							</nav>
