@@ -54,6 +54,10 @@
 				<form name="postDetailCheck" id="postDetailCheck">
 					<input type="hidden" name="detailPostNo" id="detailPostNo" value="${ post.postNo }" /> 
 					<input type="hidden" name="detailPostPageNum" id="detailPostPageNum" value="${ pageNum }" />
+					<c:if test="${ searchOption }">
+						<input type="hidden" name="type" value="${ type }" />
+						<input type="hidden" name="keyword" value="${ keyword }" />
+					</c:if>
 				</form>
 
 				<div class="row">
@@ -93,8 +97,14 @@
 
 				<div class="row">
 					<div class="col">
+					<c:if test="${ not searchOption }">
 						<input class="btn btn-primary" type="button" value="List"
 							onclick="location.href='postMain?pageNum=${ pageNum }'" />
+					</c:if>
+					<c:if test="${ searchOption }">
+						<input class="btn btn-primary" type="button" value="List"
+							onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'" />
+					</c:if>
 					</div>
 				</div>
 							<div class="row">

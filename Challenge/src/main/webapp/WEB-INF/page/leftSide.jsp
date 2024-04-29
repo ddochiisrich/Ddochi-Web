@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/formCheck.js"></script>
 </head>
 <body>
 	<div class="col-3">
@@ -21,13 +23,26 @@
 				in the middle of text. </span>
 		</div>
 		<form name="searchForm" id="searchForm" action="#">
-		<div class="input-group my-3">
-			<input type="text" class="form-control"
-				placeholder="Please enter your keyword"
-				aria-label="Recipient's username" aria-describedby="button-addon2" id="keyword">
-			<button class="btn btn-outline-secondary" type="button"
-				id="button-addon2">Search</button>
-		</div>
+			<div class="row input-group my-3">
+				<div class="col-4">
+					<select name="type" id="type" class="form-control">
+						<option>제목</option>
+						<option>글쓴이</option>
+					</select>
+				</div>
+				<div class="col-8">
+				<input type="text" class="form-control"
+					placeholder="Please enter your keyword"
+					aria-label="Recipient's username" aria-describedby="button-addon2"
+					id="keyword">
+					</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<button class="btn btn-outline-secondary" type="submit"
+						id="button-addon2">Search</button>
+				</div>
+			</div>
 		</form>
 		<hr>
 		<div class="my-3">

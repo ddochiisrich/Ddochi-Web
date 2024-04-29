@@ -60,7 +60,12 @@
 					method="post" ${ empty post.postFile ? "" : "enctype='multipart/form-data'"}>
 					<input type="hidden" name="updatePageNum" value="${pageNum}" /> 
 					<input type="hidden" name="updateNo" value="${ post.postNo }">
-
+					
+					<c:if test="${ searchOption }">
+						<input type="hidden" name="type" value="${ type }">	
+						<input type="hidden" name="keyword" value="${ keyword }">
+					</c:if>
+					
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8">
@@ -93,8 +98,14 @@
 							<button type="submit" class="btn btn-secondary"
 								style="width: 100px;">Post</button>
 							&nbsp;&nbsp;&nbsp;
+							<c:if test="${ not searchOption }">
 							<button type="button" class="btn btn-secondary"
 								style="width: 100px;" onclick="location.href='postMain?pageNum=${pageNum}'">List</button>
+								</c:if>
+							<c:if test="${ searchOption }">
+							<button type="button" class="btn btn-secondary"
+								style="width: 100px;" onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'">List</button>
+								</c:if>	
 						</div>
 						<div class="col-2"></div>
 					</div>

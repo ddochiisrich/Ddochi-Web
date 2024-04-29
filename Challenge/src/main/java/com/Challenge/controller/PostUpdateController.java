@@ -3,6 +3,7 @@ package com.Challenge.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,6 +49,8 @@ public class PostUpdateController extends HttpServlet{
 		String sNo = null;
 		String pageNum = null;
 		String fileName = null;
+		String keyword = null;
+		String type = null;
 		int no = 0;		
 
 		if(contentType.contains("multipart/form-data")) {
@@ -66,6 +69,9 @@ public class PostUpdateController extends HttpServlet{
 			sNo = multi.getParameter("updateNo");
 			postFile = multi.getParameter("updatePostFile");
 			pageNum = multi.getParameter("updatePageNum");
+			type = multi.getParameter("type");
+			keyword = multi.getParameter("keyword");
+			
 
 			fileName = multi.getFilesystemName("updatePostFile");
 			System.out.println("업로드 된 파일명 : " + fileName);
@@ -83,6 +89,8 @@ public class PostUpdateController extends HttpServlet{
 			sNo = request.getParameter("updateNo");
 			postFile = request.getParameter("updatePostFile");
 			pageNum = request.getParameter("updatePageNum");
+			type = request.getParameter("type");
+			keyword = request.getParameter("keyword");
 		}
 
 			System.out.println(sNo);
@@ -110,8 +118,17 @@ public class PostUpdateController extends HttpServlet{
 
 
 		dao.postUpdate(post);
+		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
+		String url = "boardList?pageNum=" + pageNum;
 
-		response.sendRedirect("postMain?pageNum=" + pageNum);
+		if(searchOption) {
+			keyword = URLEncoder.encode(keyword, "UTF-8");
+			url += "&type=" + type + "&keyword=" + keyword;
+		}
+		
+		response.sendRedirect(url);
 
 	}
 

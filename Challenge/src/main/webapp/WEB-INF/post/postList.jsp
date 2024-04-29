@@ -120,7 +120,7 @@
 							</tr>
 						</c:forEach>
 					</c:if>
-					<c:if test="${ searchOption and not empty cPost }">
+					<c:if test="${ not searchOption and not empty cPost }">
 						<c:forEach var="p" items="${ cPost }" varStatus="status">
 							<tr class="my-3">
 								<td>${ p.postNo }</td>

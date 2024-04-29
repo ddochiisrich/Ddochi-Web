@@ -9108,3 +9108,43 @@ Binding(COMMAND+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2024-04-29 09:30:49.419 -----------------------------------------------
+eclipse.buildId=4.31.0.20240307-1200
+java.version=17.0.10
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_KR
+Framework arguments:  -product org.eclipse.epp.package.jee.product -keyring /Users/hyeongcheol/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.jee.product -keyring /Users/hyeongcheol/.eclipse_keyring
+
+!ENTRY org.eclipse.emf.ecore 2 0 2024-04-29 09:30:54.909
+!MESSAGE Both 'org.eclipse.jst.j2ee.core' and 'org.eclipse.jst.j2ee.core' register a package for 'application.xmi'
+
+!ENTRY ch.qos.logback.classic 1 0 2024-04-29 09:30:55.292
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2024-04-29 09:30:58.495
+!MESSAGE Logback config file: /Users/hyeongcheol/Desktop/JSPStudy/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.6.0.20240217-1525.xml
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 13:29:39.006
+!MESSAGE [Info]	ESLint server running in node v18.18.2
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 13:29:39.078
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.2.2 from path "/Applications/Eclipse_jsp.app/Contents/Eclipse/plugins/org.eclipse.wildwebdeveloper_1.1.4.202311211923/node_modules/typescript/lib/tsserver.js"
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 13:29:39.086
+!MESSAGE [Info]	Typescript Server version info: {version=5.2.2, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 13:32:19.818
+!MESSAGE [Info]	ESLint server running in node v18.18.2
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 13:34:32.728
+!MESSAGE [Info]	ESLint server running in node v18.18.2
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 15:48:17.705
+!MESSAGE [Info]	ESLint server running in node v18.18.2
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 15:48:17.766
+!MESSAGE [Info]	Typescript Server version info: {version=5.2.2, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-04-29 15:48:17.766
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.2.2 from path "/Applications/Eclipse_jsp.app/Contents/Eclipse/plugins/org.eclipse.wildwebdeveloper_1.1.4.202311211923/node_modules/typescript/lib/tsserver.js"

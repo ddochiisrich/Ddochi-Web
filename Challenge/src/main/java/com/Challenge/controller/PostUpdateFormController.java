@@ -22,10 +22,15 @@ public class PostUpdateFormController extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		
 		String sNo = request.getParameter("detailPostNo");
+		String pageNum = request.getParameter("detailPostPageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
 
 		
 		int no = Integer.parseInt(sNo);
-		String pageNum = request.getParameter("detailPostPageNum");
+		
 
 		if(sNo == null || sNo.equals("") || pageNum == null || pageNum.equals("")) {
 			response.setContentType("text/html; charset=utf-8");
@@ -43,6 +48,13 @@ public class PostUpdateFormController extends HttpServlet{
 		
 		request.setAttribute("post", post);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("searchOption", searchOption);
+		
+		if(searchOption) {
+			request.setAttribute("type", type);
+			request.setAttribute("keyword", keyword);
+		}
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postUpdate.jsp");
 		rd.forward(request, response);

@@ -21,6 +21,8 @@ public class PostDetailController extends HttpServlet {
 		
 		String no = request.getParameter("no");
 		String pageNum = request.getParameter("pageNum");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
 
 		if(no == null || no.equals("") || pageNum == null || pageNum.equals("")) {
 			response.setContentType("text/html; charset=utf-8");
@@ -32,6 +34,8 @@ public class PostDetailController extends HttpServlet {
 			return;
 		}
 		
+		boolean searchOption = (type == null || type.equals("") || keyword == null || keyword.equals("")) ? false : true;
+		
 		ChallengeDao dao = new ChallengeDao();
 		ChallengePost post = dao.getPost(Integer.valueOf(no));
 		
@@ -40,7 +44,13 @@ public class PostDetailController extends HttpServlet {
 		request.setAttribute("post", post);
 		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("searchOption", searchOption);
 		
+		if(searchOption) {
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("type", type);
+			
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/post/postDetail.jsp");
 		rd.forward(request, response);

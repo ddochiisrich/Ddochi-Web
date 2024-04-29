@@ -75,8 +75,9 @@ public class PostMainController extends HttpServlet{
 				} else { 
 				listCount = dao.getPostCount(type, keyword);
 				cPost = dao.searchList(type, keyword, startRow, endRow);
+				
 				}
-				System.out.println("listCount : " + listCount);
+				
 		
 		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 		int startPage = (currentPage / PAGE_GROUP) * PAGE_GROUP + 1 - (currentPage % PAGE_GROUP == 0 ? PAGE_GROUP : 0);
