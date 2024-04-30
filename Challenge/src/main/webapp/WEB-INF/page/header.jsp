@@ -50,7 +50,7 @@
 		<div class="col-6 d-flex justify-content-end">
 		<span style="margin-top:4px;" class="image blinking">Welcome ${ nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-danger btn-sm"
-				style="width: 70px;" onclick="#">Profile</button>
+				style="width: 70px;" onclick="location.href='passCheck'">Profile</button>
 			&nbsp;&nbsp;
 			<button type="button" class="btn btn-danger btn-sm"
 				style="width: 70px;" onclick="location.href='logoutProcess'">Logout</button>

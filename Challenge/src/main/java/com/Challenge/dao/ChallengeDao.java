@@ -31,6 +31,102 @@ public class ChallengeDao {
 			e.printStackTrace();
 		}	
 	}
+	
+	public void memberUpdate(ChallengeMember m){
+
+		String sqlSignUp = "UPDATE member SET password=?, name=?, nick_name=?, email=?, address=?, phone=? WHERE id=?";
+
+
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlSignUp);
+			pstmt.setString(1, m.getPass());
+			pstmt.setString(2, m.getName());
+			pstmt.setString(3, m.getNickName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getAddress());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, m.getId());
+			
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB 작업에 사용한 자원을 해제 - 앞에서 가져온 역순으로 닫는다.
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public ArrayList<ChallengeMember> getMemberInfo(String id) {
+		String sqlGetMemberInfo = "select * from member where id=?";
+		
+		ArrayList<ChallengeMember> memberList = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlGetMemberInfo);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			memberList = new ArrayList<ChallengeMember>();
+			
+			while(rs.next()) {
+				ChallengeMember m = new ChallengeMember();
+			
+			m.setPass(rs.getString("password"));
+			m.setName(rs.getString("name"));
+			m.setNickName(rs.getString("nick_name"));
+			m.setEmail(rs.getString("email"));
+			m.setAddress(rs.getString("address"));
+			m.setPhone(rs.getString("phone"));
+			
+			memberList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return memberList;
+		
+	}
+	
+	public String passCheck(String id) {
+		String sqlPassCheck = "Select password from member where id=?";
+		String password = null;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlPassCheck);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				password = rs.getString("password");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return password;
+	}
+	
 
 	public int getVisitTotalCount() {
 		String sqlVisitTotalCount = "select COUNT(*) AS total from visit";
@@ -50,6 +146,7 @@ public class ChallengeDao {
 			e.printStackTrace();
 		} finally {
 			try {
+			if(rs != null) rs.close();
 			if(pstmt != null) pstmt.close();
 			if(conn != null) conn.close();
 			} catch(SQLException se) {}

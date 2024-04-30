@@ -18,7 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
+		<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -60,64 +60,98 @@
 						<h1>Sign Up</h1>
 					</div>
 				</div>
-				
-				<form name="signUpForm" id="signUpForm" action="signUpProcess" method="post">
-				
-				<div class="row">
-					<div class="col">
-						<span>ID : </span> <input type="text" name="memberId" id="memberId" class="form-control" maxlength="15" placeholder="Please write down 15 letters or less" autofocus/>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col">
-						<span>PASSWORD : </span> <input type="password" name="memberPw1" id="memberPw1" class="form-control"/>
+				<form name="signUpForm" id="signUpForm" action="signUpProcess"
+					method="post">
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>ID : </span> <input type="text" name="memberId"
+								id="memberId" class="form-control" maxlength="15"
+								placeholder="Please write down 15 letters or less" autofocus />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>PASSWORD CHECK : </span> <input type="password" name="memberPw2" id="memberPw2" class="form-control"/>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>PASSWORD : </span> <input type="password" name="memberPw1"
+								id="memberPw1" class="form-control" />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>NAME : </span> <input type="text" name="memberName" id="memberName" class="form-control"/>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>PASSWORD CHECK : </span> <input type="password"
+								name="memberPw2" id="memberPw2" class="form-control" />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>NICK NAME : </span> <input type="text" name="memberNickname" id="memberNickname" class="form-control" maxlength="15" placeholder="Please write down 15 letters or less"/>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>NAME : </span> <input type="text" name="memberName"
+								id="memberName" class="form-control" />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>E-MAIL : </span> <input type="email" name="memberEmail" id="memberEmail" class="form-control"/>
-						<br><input type="checkbox" name="memberMailAgree" id="memberMailAgree" />  Agree to receive emails
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>NICK NAME : </span> <input type="text"
+								name="memberNickname" id="memberNickname" class="form-control"
+								maxlength="15"
+								placeholder="Please write down 15 letters or less" />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>ADDRESS : </span> <input type="text" name="memberAddress" id="memberAddress" class="form-control"/>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>E-MAIL : </span> <input type="email" name="memberEmail"
+								id="memberEmail" class="form-control" /> <br>
+							<input type="checkbox" name="memberMailAgree"
+								id="memberMailAgree" /> Agree to receive emails
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<span>PHONE NUMBER : </span> <input type="tel" name="memberPhone" id="memberPhone" class="form-control" maxlength="15" placeholder="Please enter the numbers except for '-'"/>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>ADDRESS : </span> <input type="text" name="memberAddress"
+								id="memberAddress" class="form-control" />
+						</div>
+						<div class="col-2"></div>
 					</div>
-				</div>
-				
-				<button type="submit" class="btn btn-secondary" id="signUpBtn" name="signUpBtn">Sign Up</button>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<span>PHONE NUMBER : </span> <input type="tel" name="memberPhone"
+								id="memberPhone" class="form-control" maxlength="15"
+								placeholder="Please enter the numbers except for '-'" />
+						</div>
+						<div class="col-2"></div>
+					</div>
+
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<button type="submit" class="btn btn-danger mt-3" id="signUpBtn"
+								name="signUpBtn" style="width:636px">Sign Up</button>
+						</div>
+						<div class="col-2"></div>
+					</div>
 				</form>
-
-
-
-				<!-- Footer -->
+<!-- Footer -->
 				<hr>
 				<%@ include file="../page/footer.jsp"%>
 			</div>

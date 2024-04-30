@@ -18,7 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-		<%@ include file="../page/offcanvas_teamHeader.jsp"%>
+			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -57,44 +57,77 @@
 				</div>
 				<div class="row text-center">
 					<div class="col">
-						<h1>Login</h1>
+						<h1>Sign Up</h1>
 					</div>
 				</div>
-
-				<form name="loginForm" id="loginForm" action="loginProcess"
-					method="post">
-					<div class="row">
-						<div class="col d-flex flex-column align-items-center">
-							<div class="row">
-							
-								<div class="col">
-									<span>ID : </span> <input type="text" name="memberLoginId"
-										id="memberLoginId" class="form-control" maxlength="15"
-										autofocus style="width: 407px;" />
-								</div>
-							
-							</div>
-
-							<div class="row">
-						
-								<div class="col">
-									<span>PASSWORD : </span> <input type="password"
-										name="memberLoginPw1" id="memberLoginPw1" class="form-control"
-										style="width: 407px;" />
-								</div>
-
-							</div>
-							<div class="row">
-			
-								<div class="col d-flex flex-column align-items-center my-2">
-									<button type="submit" class="btn btn-danger" id="signUpBtn"
-										name="signUpBtn" style="width: 407px;">Login</button>
-								</div>
-						
-							</div>
-						</div>
+				
+				<form name="userUpdate" id="userUpdate" action="userUpdateProcess" method="post">
+				
+<c:forEach var="m" items="${ memberList }">
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>PASSWORD : </span> <input type="password" name="memberPw1" id="memberPw1" class="form-control" value="${ m.pass }"/>
 					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>NAME : </span> <input type="text" name="memberName" id="memberName" class="form-control" value="${ m.name }"/>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>NICK NAME : </span> <input type="text" name="memberNickname" id="memberNickname" class="form-control" maxlength="15" placeholder="Please write down 15 letters or less" value="${ m.nickName }" />
+					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>E-MAIL : </span> <input type="email" name="memberEmail" id="memberEmail" class="form-control" value="${ m.email }"/>
+						<br><input type="checkbox" name="memberMailAgree" id="memberMailAgree"/>  Agree to receive emails
+					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>ADDRESS : </span> <input type="text" name="memberAddress" id="memberAddress" class="form-control" value="${ m.address }"/>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+				<div class="col-2"></div>
+					<div class="col-8">
+						<span>PHONE NUMBER : </span> <input type="tel" name="memberPhone" id="memberPhone" class="form-control" maxlength="15" placeholder="Please enter the numbers except for '-'" value="${ m.phone }"/>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				
+				<div class="row">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<button type="submit" class="btn btn-danger mt-3" id="signUpBtn"
+								name="signUpBtn" style="width:636px">Edit</button>
+						</div>
+						<div class="col-2"></div>
+					</div>
+				
+				</c:forEach>
+				
 				</form>
+
+
+
 				<!-- Footer -->
 				<hr>
 				<%@ include file="../page/footer.jsp"%>

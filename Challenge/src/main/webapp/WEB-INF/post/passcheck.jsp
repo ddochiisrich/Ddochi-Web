@@ -57,29 +57,20 @@
 				</div>
 				<div class="row text-center">
 					<div class="col">
-						<h1>Login</h1>
+						<h1>Password Check</h1>
 					</div>
 				</div>
 
-				<form name="loginForm" id="loginForm" action="loginProcess"
+				<form name="userUpdatePassCheckForm" id="userUpdatePassCheckForm" action="userUpdate"
 					method="post">
 					<div class="row">
 						<div class="col d-flex flex-column align-items-center">
-							<div class="row">
-							
-								<div class="col">
-									<span>ID : </span> <input type="text" name="memberLoginId"
-										id="memberLoginId" class="form-control" maxlength="15"
-										autofocus style="width: 407px;" />
-								</div>
-							
-							</div>
 
 							<div class="row">
 						
-								<div class="col">
+								<div class="col mt-3">
 									<span>PASSWORD : </span> <input type="password"
-										name="memberLoginPw1" id="memberLoginPw1" class="form-control"
+										name="userPassCheck" id="userPassCheck" class="form-control"
 										style="width: 407px;" />
 								</div>
 
@@ -88,7 +79,7 @@
 			
 								<div class="col d-flex flex-column align-items-center my-2">
 									<button type="submit" class="btn btn-danger" id="signUpBtn"
-										name="signUpBtn" style="width: 407px;">Login</button>
+										name="commitBtn" style="width: 407px;">Commit</button>
 								</div>
 						
 							</div>
