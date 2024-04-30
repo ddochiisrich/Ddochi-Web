@@ -32,6 +32,49 @@ public class ChallengeDao {
 		}	
 	}
 
+	public int getVisitTotalCount() {
+		String sqlVisitTotalCount = "select COUNT(*) AS total from visit";
+		int totalCount = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlVisitTotalCount);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+	            totalCount = rs.getInt("total");
+	        }
+			
+			System.out.println(totalCount);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		return totalCount;
+	}
+	
+	public void setVisitTotalCount() { // 전체 방문자 수 증가
+		String sqlVisitTotalCount = "INSERT INTO VISIT (V_DATE) VALUES (sysdate)";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sqlVisitTotalCount);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			} catch(SQLException se) {}
+		}
+		
+	}
+	
 	public void plusView(int no) {
 		
 		String sqlPlusView = "UPDATE post SET view1 = view1 + 1 WHERE post_no = ?";

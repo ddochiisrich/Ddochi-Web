@@ -29,7 +29,7 @@
 </head>
 <body>
 	<div class="row my-1">
-		<div class="col-6">Today : 298,329</div>
+		<div class="col-6">Total : ${sessionScope.totalCount}</div>
 
 
 		<!-- 로그인이 안되었을 때 -->

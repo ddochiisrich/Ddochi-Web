@@ -26,7 +26,7 @@
 		<form name="searchForm" id="searchForm">
 			<div class="row input-group my-3">
 				<div class="col-3">
-					<select name="type" id="type" class="form-control text-danger">
+					<select name="type" id="type" class="form-control text-danger" style="font-size:12px;">
 						<option value="post_title">제목</option>
 						<option value="nick_name">글쓴이</option>
 					</select>
@@ -35,7 +35,7 @@
 				<input type="text" class="form-control"
 					placeholder="Please enter your keyword"
 					aria-label="Recipient's username" aria-describedby="button-addon2"
-					id="keyword" name="keyword">
+					id="keyword" name="keyword" style="font-size:12px;">
 					</div>
 			</div>
 			<div class="row">

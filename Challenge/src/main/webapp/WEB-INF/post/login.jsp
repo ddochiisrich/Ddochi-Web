@@ -18,7 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
+		<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -63,32 +63,36 @@
 
 				<form name="loginForm" id="loginForm" action="loginProcess"
 					method="post">
+					<div class="row">
+						<div class="col d-flex flex-column align-items-center">
+							<div class="row">
+							
+								<div class="col">
+									<span>ID : </span> <input type="text" name="memberLoginId"
+										id="memberLoginId" class="form-control" maxlength="15"
+										autofocus style="width: 407px;" />
+								</div>
+							
+							</div>
 
-					<div class="row">
-						<div class="col-3"></div>
-						<div class="col-6">
-							<span>ID : </span> <input type="text" name="memberLoginId"
-								id="memberLoginId" class="form-control" maxlength="15"
-								autofocus />
-						</div>
-						<div class="col-3"></div>
-					</div>
+							<div class="row">
+						
+								<div class="col">
+									<span>PASSWORD : </span> <input type="password"
+										name="memberLoginPw1" id="memberLoginPw1" class="form-control"
+										style="width: 407px;" />
+								</div>
 
-					<div class="row">
-						<div class="col-3"></div>
-						<div class="col-6">
-							<span>PASSWORD : </span> <input type="password" name="memberLoginPw1"
-								id="memberLoginPw1" class="form-control" />
+							</div>
+							<div class="row">
+			
+								<div class="col d-flex flex-column align-items-center my-2">
+									<button type="submit" class="btn btn-danger" id="signUpBtn"
+										name="signUpBtn" style="width: 407px;">Login</button>
+								</div>
+						
+							</div>
 						</div>
-						<div class="col-3"></div>
-					</div>
-					<div class="row">
-						<div class="col-3"></div>
-						<div class="col-6">
-							<button type="submit" class="btn btn-secondary" id="signUpBtn"
-								name="signUpBtn">Sign Up</button>
-						</div>
-						<div class="col-3"></div>
 					</div>
 				</form>
 

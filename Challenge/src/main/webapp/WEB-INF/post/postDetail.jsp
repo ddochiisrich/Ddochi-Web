@@ -18,7 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
+		<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -83,7 +83,7 @@
 						<!-- 삭제아이콘 -->
 						<c:if test="${ check }">
 							<a type="button" id="detailDelete"><i
-								class="fa-solid fa-trash fa-2xl"></i></a>
+								class="fa-solid fa-trash fa-2xl text-danger"></i></a>
 						</c:if>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<!-- 수정아이콘 -->
@@ -91,8 +91,10 @@
 							<a id="detailUpdate" type="button"><i
 								class="fa-solid fa-pen-to-square fa-2xl" id="detailUpdate"></i></a>
 						</c:if>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i
-							class="fa-solid fa-share-nodes fa-2xl"></i>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a type="button" href="#"
+							onclick="clip(); return false;"
+							class="link-dark text-decoration-none"> <i
+							class="fa-solid fa-share-nodes fa-2xl"></i></a>
 					</div>
 					<div class="col-1"></div>
 				</div>
@@ -100,12 +102,14 @@
 				<hr style="width: 802px; margin: 0 auto;">
 
 				<div class="row">
-				<div class="col-1"></div>
+					<div class="col-1"></div>
 					<div class="col-10">
-						<c:if test="${ empty post.postFile }"><i class="fa-solid fa-floppy-disk"></i> Not Found File</c:if>
+						<c:if test="${ empty post.postFile }">
+							<i class="fa-solid fa-floppy-disk"></i> Not Found File</c:if>
 
 						<c:if test="${ not empty post.postFile }">
-							<a href="upload/${ post.postFile }"><i class="fa-solid fa-floppy-disk"></i> ${ post.postFile }</a>
+							<a href="upload/${ post.postFile }"><i
+								class="fa-solid fa-floppy-disk"></i> ${ post.postFile }</a>
 						</c:if>
 					</div>
 					<div class="col-1"></div>
@@ -117,20 +121,19 @@
 					<div class="col-1"></div>
 				</div>
 
-				<div class="row">
-					<div class="col-1"></div>
-					<div class="col-10">
+				<div class="row justify-content-center">
+					<div class="col-10 text-center  my-2">
 						<c:if test="${ not searchOption }">
-							<input class="btn btn-primary" type="button" value="List"
-								onclick="location.href='postMain?pageNum=${ pageNum }'" />
+							<input class="btn btn-danger" type="button" value="List"
+								onclick="location.href='postMain?pageNum=${ pageNum }'" style="width:100px" />
 						</c:if>
 						<c:if test="${ searchOption }">
-							<input class="btn btn-primary" type="button" value="List"
-								onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'" />
+							<input class="btn btn-dnager" type="button" value="List"
+								onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'"  style="width:100px"/>
 						</c:if>
 					</div>
-					<div class="col-1"></div>
 				</div>
+
 
 				<hr style="width: 802px; margin: 0 auto;">
 
@@ -168,6 +171,20 @@
 		</div>
 	</div>
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		function clip() {
+
+			var url = '';
+			var textarea = document.createElement("textarea");
+			document.body.appendChild(textarea);
+			url = window.document.location.href;
+			textarea.value = url;
+			textarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(textarea);
+			alert("URL has been copied.")
+		}
+	</script>
 
 </body>
 </html>

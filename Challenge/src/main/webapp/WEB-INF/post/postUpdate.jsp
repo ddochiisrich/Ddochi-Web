@@ -100,15 +100,15 @@
 					<div class="row">
 						<div class="col-2"></div>
 						<div class="col-8 my-3 d-flex justify-content-center">
-							<button type="submit" class="btn btn-secondary"
+							<button type="submit" class="btn btn-danger"
 								style="width: 100px;">Post</button>
 							&nbsp;&nbsp;&nbsp;
 							<c:if test="${ not searchOption }">
-							<button type="button" class="btn btn-secondary"
+							<button type="button" class="btn btn-danger"
 								style="width: 100px;" onclick="location.href='postMain?pageNum=${pageNum}'">List</button>
 								</c:if>
 							<c:if test="${ searchOption }">
-							<button type="button" class="btn btn-secondary"
+							<button type="button" class="btn btn-danger"
 								style="width: 100px;" onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'">List</button>
 								</c:if>	
 						</div>
