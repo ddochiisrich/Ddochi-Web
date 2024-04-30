@@ -7,6 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.blinking{
+  -webkit-animation:blink 2s ease-in-out infinite alternate;
+  -moz-animation:blink 2s ease-in-out infinite alternate;
+  animation:blink 2s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+@-moz-keyframes blink{
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+@keyframes blink{
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+</style>
 </head>
 <body>
 	<div class="row my-1">
@@ -24,9 +43,12 @@
 		</div>
 		</c:if>
 		
+		
+		
 		<!-- 로그인 상태일 때 -->
 		<c:if test="${ not empty nickname }">
 		<div class="col-6 d-flex justify-content-end">
+		<span style="margin-top:4px;" class="image blinking">Welcome ${ nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-danger btn-sm"
 				style="width: 70px;" onclick="#">Profile</button>
 			&nbsp;&nbsp;
@@ -34,6 +56,7 @@
 				style="width: 70px;" onclick="location.href='logoutProcess'">Logout</button>
 		</div>
 		</c:if>
+		
 
 		<div class="row my-5 text-center">
 			<div class="col">
@@ -41,16 +64,7 @@
 			</div>
 		</div>
 
-		<div class="row text-end">
-			<div class="col">
-				<c:if test="${ not empty nickname }">
-				<h5>Welcome ${ nickname }</h5>
-				</c:if>
-				<c:if test="${ empty nickname }">
-				<h5>&nbsp;</h5>
-				</c:if>
-			</div>
-		</div>
+		
 	</div>
 </body>
 </html>

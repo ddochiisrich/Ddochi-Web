@@ -114,7 +114,7 @@
 								<td></td>
 								<td><a
 									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}&type=${type}&keyword=${keyword}"
-									class="link-dark text-decoration-none text-danger">${ p.postTitle }</a></td>
+									class="link-dark text-decoration-none">${ p.postTitle }</a></td>
 								<td>${ p.writer }</td>
 								<td><fmt:formatDate value="${ p.postRegDate }"
 										pattern="MM-dd HH:mm" /></td>

@@ -18,6 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
+			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>

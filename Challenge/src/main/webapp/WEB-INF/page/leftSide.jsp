@@ -26,7 +26,7 @@
 		<form name="searchForm" id="searchForm">
 			<div class="row input-group my-3">
 				<div class="col-3">
-					<select name="type" id="type" class="form-control">
+					<select name="type" id="type" class="form-control text-danger">
 						<option value="post_title">제목</option>
 						<option value="nick_name">글쓴이</option>
 					</select>

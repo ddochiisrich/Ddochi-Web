@@ -18,6 +18,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
+			<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -56,8 +57,10 @@
 				</div>
 
 				<form name="postDetailCheck" id="postDetailCheck">
-					<input type="hidden" name="detailPostNo" id="detailPostNo" value="${ post.postNo }" /> 
-					<input type="hidden" name="detailPostPageNum" id="detailPostPageNum" value="${ pageNum }" />
+					<input type="hidden" name="detailPostNo" id="detailPostNo"
+						value="${ post.postNo }" /> <input type="hidden"
+						name="detailPostPageNum" id="detailPostPageNum"
+						value="${ pageNum }" />
 					<c:if test="${ searchOption }">
 						<input type="hidden" name="type" value="${ type }" />
 						<input type="hidden" name="keyword" value="${ keyword }" />
@@ -65,16 +68,18 @@
 				</form>
 
 				<div class="row">
-					<div class="col">
+					<div class="col-1"></div>
+					<div class="col-11">
 						<h3>Category</h3>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col">
+					<div class="col-1"></div>
+					<div class="col-5">
 						<h1>${ post.postTitle }</h1>
 					</div>
-					<div class="col text-end">
+					<div class="col-5 text-end">
 						<!-- 삭제아이콘 -->
 						<c:if test="${ check }">
 							<a type="button" id="detailDelete"><i
@@ -89,9 +94,22 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i
 							class="fa-solid fa-share-nodes fa-2xl"></i>
 					</div>
+					<div class="col-1"></div>
 				</div>
 
 				<hr style="width: 802px; margin: 0 auto;">
+
+				<div class="row">
+				<div class="col-1"></div>
+					<div class="col-10">
+						<c:if test="${ empty post.postFile }"><i class="fa-solid fa-floppy-disk"></i> Not Found File</c:if>
+
+						<c:if test="${ not empty post.postFile }">
+							<a href="upload/${ post.postFile }"><i class="fa-solid fa-floppy-disk"></i> ${ post.postFile }</a>
+						</c:if>
+					</div>
+					<div class="col-1"></div>
+				</div>
 
 				<div class="row">
 					<div class="col-1"></div>
@@ -100,26 +118,19 @@
 				</div>
 
 				<div class="row">
-					<div class="col">
-					<c:if test="${ not searchOption }">
-						<input class="btn btn-primary" type="button" value="List"
-							onclick="location.href='postMain?pageNum=${ pageNum }'" />
-					</c:if>
-					<c:if test="${ searchOption }">
-						<input class="btn btn-primary" type="button" value="List"
-							onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'" />
-					</c:if>
+					<div class="col-1"></div>
+					<div class="col-10">
+						<c:if test="${ not searchOption }">
+							<input class="btn btn-primary" type="button" value="List"
+								onclick="location.href='postMain?pageNum=${ pageNum }'" />
+						</c:if>
+						<c:if test="${ searchOption }">
+							<input class="btn btn-primary" type="button" value="List"
+								onclick="location.href='postMain?pageNum=${ pageNum }&type=${ type }&keyword=${ keyword }'" />
+						</c:if>
 					</div>
+					<div class="col-1"></div>
 				</div>
-							<div class="row">
-								<div class="col">
-									<c:if test="${ empty post.postFile }"> Not Found File</c:if>
-									
-									<c:if test="${ not empty post.postFile }">
-										<a href="upload/${ post.postFile }">${ post.postFile }</a>
-									</c:if>
-								</div>
-							</div>
 
 				<hr style="width: 802px; margin: 0 auto;">
 
@@ -157,6 +168,6 @@
 		</div>
 	</div>
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
-	
+
 </body>
 </html>

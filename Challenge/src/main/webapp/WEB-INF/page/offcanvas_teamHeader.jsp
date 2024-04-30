@@ -75,7 +75,7 @@
 			<div>
 				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🦊 양은정</a></div><br>
 				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">️🐻‍❄ 이현학</a></div><br>
-				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🐹 우황희</a></div><br>
+				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="http://192.168.0.17:8080/miniproject/imgList" class="link-dark text-decoration-none fs-2 mx-5">🐹 우황희</a></div><br>
 				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🐭 이형철</a></div><br>
 			</div>
 		</div>
