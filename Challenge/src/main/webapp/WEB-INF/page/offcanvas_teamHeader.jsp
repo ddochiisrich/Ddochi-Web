@@ -57,20 +57,30 @@
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	
-	<div class="row my-5">
-		<div class="col">
+<div class="d-flex justify-content-end">
+	<button class="btn btn-danger btn-sm mt-2" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+		aria-controls="staticBackdrop" style="width:148px;">Team Site</button>
+
+	<div class="offcanvas offcanvas-start" data-bs-backdrop="static"
+		tabindex="-1" id="staticBackdrop"
+		aria-labelledby="staticBackdropLabel">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title fs-1 mt-5" id="staticBackdropLabel">🌎 우주최강 2팀
+				🌎</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+				aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
 			<div>
-				<ul class="d-flex menu align-center expanded text-center SMN_effect-15 justify-content-center" style="list-style: none">
-					<li><a href="">🦊 양은정</a></li>
-					<li><a href="">️🐻‍❄ 이현학</a></li>
-					<li><a href="">🐹 우황희</a></li>
-					<li><a href="">🐭 이형철</a></li>
-				</ul>
+				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🦊 양은정</a></div><br>
+				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">️🐻‍❄ 이현학</a></div><br>
+				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🐹 우황희</a></div><br>
+				<div class="d-flex menu expanded text-center SMN_effect-15"><a href="" class="link-dark text-decoration-none fs-2 mx-5">🐭 이형철</a></div><br>
 			</div>
 		</div>
 	</div>
-
+	</div>
 	<script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

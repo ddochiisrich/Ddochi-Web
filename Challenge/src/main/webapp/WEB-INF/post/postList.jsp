@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>📕 Challenge BLOG 📕</title>
+<style>
+.page-item.active .page-link {
+	color: white;
+	font-weight: bold;
+	background-color: #dc3545;
+	border-color: #dc3545;
+}
+</style>
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 <link rel="stylesheet"
@@ -16,7 +24,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
-	<%@ include file="../page/teamHeader.jsp"%>
+		<%@ include file="../page/offcanvas_teamHeader.jsp"%>
 		<%@ include file="../page/header.jsp"%>
 		<div class="row">
 			<%@ include file="../page/leftSide.jsp"%>
@@ -26,15 +34,19 @@
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="./img/carousel8.jpg" class="d-block w-100" alt=""
+							<img src="./img/1.png" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 						<div class="carousel-item">
-							<img src="./img/carousel9.jpg" class="d-block w-100" alt=""
+							<img src="./img/2.png" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 						<div class="carousel-item">
-							<img src="./img/carousel10.jpg" class="d-block w-100" alt=""
+							<img src="./img/3.png" class="d-block w-100" alt=""
+								height="200px">
+						</div>
+						<div class="carousel-item">
+							<img src="./img/4.png" class="d-block w-100" alt=""
 								height="200px">
 						</div>
 					</div>
@@ -50,28 +62,9 @@
 					</button>
 				</div>
 
-				<div class="row my-2">
-					<div class="col d-flex justify-content-end">
-						<span>post count : </span> &nbsp; <select
-							class="form-select form-select-sm"
-							aria-label="Small select example" style="width: 70px;">
-							<option value="10">10</option>
-							<option value="20">20</option>
-							<option value="30">30</option>
-						</select> &nbsp;
-						<button type="button" class="btn btn-secondary btn-sm"
-							style="width: 40px;">GO</button>
-					</div>
-				</div>
-
 				<div class="row">
-					<div class="col-6">
-						<h4>All Post</h4>
-					</div>
-					<div class="col-6 d-flex justify-content-end">
-						<button type="button" class="btn btn-secondary btn-lg mb-2"
-							onclick="location.href='postForm'">POST</button>
-					</div>
+					<div class="col-6"></div>
+
 				</div>
 
 				<c:if test="${ searchOption }">
@@ -79,8 +72,12 @@
 						<div class="col text-center">"${ keyword }" 검색 결과</div>
 					</div>
 					<div class="row my-3">
-						<div class="col">
-							<a href="postMain" class="btn btn-outline-success">리스트</a>
+						<div class="col"></div>
+						<div class="col-6 d-flex justify-content-end">
+							<a href="postMain"
+								class="btn btn-outline-danger btn-lg mx-2 mb-2">LIST</a>
+							<button type="button" class="btn btn-danger btn-lg mb-2"
+								onclick="location.href='postForm'">POST</button>
 						</div>
 
 					</div>
@@ -88,15 +85,19 @@
 				<!-- 검색 요청이 아닐 경우 아래를 화면에 표시 -->
 				<c:if test="${ not searchOption }">
 					<div class="row my-3">
-						<div class="col text-end">
-							<a href="#">&nbsp;</a>
+						<div class="col-6">
+							<h4>All Post</h4>
+						</div>
+						<div class="col-6 d-flex justify-content-end">
+							<button type="button" class="btn btn-danger btn-lg mb-2"
+								onclick="location.href='postForm'">POST</button>
 						</div>
 					</div>
 				</c:if>
 
 
 				<table class="table table-hover">
-					<tr class="table-dark">
+					<tr class="table-secondary">
 						<th style="width: 3%">No</th>
 						<th style="width: 3%"></th>
 						<th>Title</th>
@@ -112,7 +113,8 @@
 								<td>${ p.postNo }</td>
 								<td></td>
 								<td><a
-									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}&type=${type}&keyword=${keyword}">${ p.postTitle }</a></td>
+									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}&type=${type}&keyword=${keyword}"
+									class="link-dark text-decoration-none text-danger">${ p.postTitle }</a></td>
 								<td>${ p.writer }</td>
 								<td><fmt:formatDate value="${ p.postRegDate }"
 										pattern="MM-dd HH:mm" /></td>
@@ -127,7 +129,8 @@
 								<td>${ p.postNo }</td>
 								<td></td>
 								<td><a
-									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}">${ p.postTitle }</a></td>
+									href="postDetail?no=${ p.postNo }&pageNum=${currentPage}"
+									class="link-dark text-decoration-none">${ p.postTitle }</a></td>
 								<td>${ p.writer }</td>
 								<td><fmt:formatDate value="${ p.postRegDate }"
 										pattern="MM-dd HH:mm" /></td>
@@ -138,8 +141,8 @@
 					</c:if>
 					<c:if test="${ searchOption and empty cPost }">
 						<tr>
-							<td colspan="5" class="text-center">${ keyword } POST does
-								not exist. Please contact the admin</td>
+							<td colspan="5" class="text-center">${ keyword }POSTdoesnot
+								exist. Please contact the admin</td>
 						</tr>
 					</c:if>
 					<c:if test="${ not searchOption and empty cPost }">
@@ -155,58 +158,64 @@
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<c:if test="${ startPage > pageGroup }">
-										<li class="page-item"><a class="page-link"
+										<li class="page-item"><a class="page-link text-danger"
 											href="postMain?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
 											aria-label="Previous"> Pre </a></li>
 									</c:if>
-									
+
 									<c:forEach var="i" begin="${startPage}" end="${endPage}">
 										<c:if test="${i == currentPage }">
+											<li class="page-item active" aria-current="page"><span
+												class="page-link">${ i }</span></li>
 										</c:if>
 										<c:if test="${ i != cuerrentPage }">
-											<li class="page-item"><a class="page-link"
+											<li class="page-item"><a class="page-link text-danger"
 												href="postMain?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
 										</c:if>
 									</c:forEach>
 									<c:if test="${ endPage < pageCount }">
-										<li class="page-item"><a class="page-link" href="postMain?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+										<li class="page-item"><a class="page-link text-danger"
+											href="postMain?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
 									</c:if>
 								</ul>
 							</nav>
 						</div>
 					</div>
 				</c:if>
-				
+
 				<c:if test="${ not searchOption and not empty cPost }">
 					<div class="row">
 						<div class="col">
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<c:if test="${ startPage > pageGroup }">
-										<li class="page-item"><a class="page-link"
+										<li class="page-item"><a class="page-link text-danger"
 											href="postMain?pageNum=${ startPage - pageGroup }&type=${ type }&keyword=${ keyword }"
 											aria-label="Previous"> Pre </a></li>
 									</c:if>
-									
+
 									<c:forEach var="i" begin="${startPage}" end="${endPage}">
-										<c:if test="${i == currentPage }">
+										<c:if test="${ i == currentPage }">
+											<li class="page-item active" aria-current="page"><span
+												class="page-link">${ i }</span></li>
 										</c:if>
-										<c:if test="${ i != cuerrentPage }">
-											<li class="page-item"><a class="page-link"
-												href="postMain?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
+										<c:if test="${ i != currentPage }">
+											<li class="page-item"><a class="page-link text-danger"
+												href="postMain?pageNum=${ i }">${ i }</a></li>
 										</c:if>
 									</c:forEach>
 									<c:if test="${ endPage < pageCount }">
-										<li class="page-item"><a class="page-link" href="postMain?pageNum=${ startPage + pageGroup }&type=${ type }&keyword=${ keyword }">Next</a>
+										<li class="page-item"><a class="page-link text-danger"
+											href="postMain?pageNum=${ startPage + pageGroup }">Next</a>
 									</c:if>
 								</ul>
 							</nav>
 						</div>
 					</div>
 				</c:if>
-					<!-- Footer -->
-					<hr>
-					<%@ include file="../page/footer.jsp"%>
+				<!-- Footer -->
+				<hr>
+				<%@ include file="../page/footer.jsp"%>
 			</div>
 		</div>
 	</div>
