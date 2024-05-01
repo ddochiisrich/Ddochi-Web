@@ -168,7 +168,7 @@
 											<li class="page-item active" aria-current="page"><span
 												class="page-link">${ i }</span></li>
 										</c:if>
-										<c:if test="${ i != cuerrentPage }">
+										<c:if test="${ i != currentPage }">
 											<li class="page-item"><a class="page-link text-danger"
 												href="postMain?pageNum=${ i }&type=${ type }&keyword=${ keyword }">${i}</a></li>
 										</c:if>

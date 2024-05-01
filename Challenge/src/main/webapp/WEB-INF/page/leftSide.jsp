@@ -12,7 +12,7 @@
 	<div class="col-3">
 		<img alt="" src="./img/profile.jpg"><br>
 		<div class="my-3">
-			<h3>Manager</h3>
+			<h3>🐚 Lorem</h3>
 		</div>
 		<div>
 			<span>There are many variations of passages of Lorem Ipsum

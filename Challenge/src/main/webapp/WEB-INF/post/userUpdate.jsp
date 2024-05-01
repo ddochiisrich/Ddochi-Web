@@ -57,7 +57,7 @@
 				</div>
 				<div class="row text-center">
 					<div class="col">
-						<h1>Sign Up</h1>
+						<h1>User Information Edit</h1>
 					</div>
 				</div>
 				
