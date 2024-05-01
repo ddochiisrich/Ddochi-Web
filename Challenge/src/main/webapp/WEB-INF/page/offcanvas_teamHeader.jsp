@@ -66,8 +66,8 @@
 		tabindex="-1" id="staticBackdrop"
 		aria-labelledby="staticBackdropLabel">
 		<div class="offcanvas-header">
-			<h5 class="offcanvas-title fs-2 mt-5" id="staticBackdropLabel">🌎 우주최강 2팀
-				</h5>
+			<h5 class="offcanvas-title fs-2 mt-5" id="staticBackdropLabel"><a href="http://192.168.0.17:8080/miniproject/mainPage" class="link-dark text-decoration-none">🌎 우주최강 2팀
+				</a></h5>
 			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 				aria-label="Close"></button>
 		</div>
