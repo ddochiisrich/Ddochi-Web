@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="검"/>
 		<list key="findhistory">
+			<item value="검"/>
 			<item value="board"/>
 			<item value="form"/>
 			<item value="detailPostNo"/>
@@ -22,7 +23,6 @@
 			<item value="productAdd"/>
 			<item value="enctype"/>
 			<item value="enc"/>
-			<item value="multipart"/>
 		</list>
 		<list key="replacehistory">
 			<item value="productcomment"/>
